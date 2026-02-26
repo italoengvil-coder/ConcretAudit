@@ -1,227 +1,850 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<meta charset="UTF-8">
-<title>Sistema de Auditoria de Centrais</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inspeção de Centrais de Concreto</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
 
-<script src="jspdf.umd.min.js"></script>
+        body {
+            background: #f0f2f5;
+            padding: 20px;
+        }
 
-<style>
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    margin: 0;
-}
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
 
-header {
-    background-color: #2e2e2e;
-    color: white;
-    padding: 15px;
-    display: flex;
-    align-items: center;
-}
+        /* Cabeçalho */
+        .header {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
 
-header img {
-    height: 50px;
-    margin-right: 15px;
-}
+        .header h1 {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+        }
 
-h1 {
-    font-size: 20px;
-}
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
 
-.container {
-    padding: 20px;
-}
+        .info-item {
+            background: rgba(255,255,255,0.1);
+            padding: 15px;
+            border-radius: 10px;
+        }
 
-.card {
-    background: white;
-    padding: 15px;
-    margin-bottom: 20px;
-    border-left: 6px solid #9e9e9e;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
+        .info-item label {
+            display: block;
+            font-size: 0.9em;
+            opacity: 0.9;
+            margin-bottom: 5px;
+        }
 
-.card h2 {
-    margin-top: 0;
-    color: #2e2e2e;
-}
+        .info-item input {
+            width: 100%;
+            padding: 8px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            background: rgba(255,255,255,0.9);
+        }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
+        /* Barra de progresso */
+        .progress-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
 
-th, td {
-    border: 1px solid #ccc;
-    padding: 6px;
-    font-size: 13px;
-}
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
 
-th {
-    background-color: #e0e0e0;
-}
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4CAF50, #45a049);
+            transition: width 0.3s ease;
+            width: 0%;
+        }
 
-button {
-    background-color: #2e2e2e;
-    color: white;
-    border: none;
-    padding: 12px;
-    width: 100%;
-    font-size: 16px;
-    cursor: pointer;
-}
+        .stats {
+            display: flex;
+            gap: 20px;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
 
-button:hover {
-    background-color: #424242;
-}
+        .stat-card {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            flex: 1;
+            min-width: 150px;
+        }
 
-textarea {
-    width: 100%;
-}
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #1e3c72;
+        }
 
-input[type="text"], input[type="date"] {
-    width: 100%;
-    padding: 6px;
-}
-</style>
+        /* Navegação por setores */
+        .sector-nav {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .sector-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background: #e0e0e0;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .sector-btn.active {
+            background: #1e3c72;
+            color: white;
+        }
+
+        .sector-btn:hover {
+            background: #2a5298;
+            color: white;
+        }
+
+        /* Checklist */
+        .checklist-container {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .sector-title {
+            background: #1e3c72;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            font-size: 1.3em;
+        }
+
+        .checklist-item {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+            transition: all 0.3s;
+        }
+
+        .checklist-item.nconforme {
+            border-left: 5px solid #dc3545;
+            background: #fff5f5;
+        }
+
+        .checklist-item.conforme {
+            border-left: 5px solid #28a745;
+        }
+
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .item-desc {
+            font-weight: 600;
+            font-size: 1.1em;
+            color: #333;
+        }
+
+        .status-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .status-btn {
+            padding: 8px 20px;
+            border: 2px solid transparent;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .btn-conforme {
+            background: #28a745;
+            color: white;
+        }
+
+        .btn-conforme.active {
+            background: #218838;
+            box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.3);
+        }
+
+        .btn-nconforme {
+            background: #dc3545;
+            color: white;
+        }
+
+        .btn-nconforme.active {
+            background: #c82333;
+            box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.3);
+        }
+
+        .observation-area {
+            margin-top: 10px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .observation-input {
+            flex: 1;
+            min-width: 200px;
+            padding: 8px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+        }
+
+        .photo-upload {
+            position: relative;
+            display: inline-block;
+        }
+
+        .photo-btn {
+            background: #6c757d;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9em;
+        }
+
+        .photo-btn:hover {
+            background: #5a6268;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .photo-preview {
+            max-width: 100px;
+            max-height: 100px;
+            margin-top: 10px;
+            border-radius: 5px;
+        }
+
+        /* Botão de gerar relatório */
+        .report-section {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .generate-btn {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            border: none;
+            padding: 20px 40px;
+            font-size: 1.3em;
+            font-weight: bold;
+            border-radius: 10px;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.3s;
+            margin-bottom: 20px;
+        }
+
+        .generate-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        /* Relatório gerado */
+        .report-preview {
+            background: #f8f9fa;
+            padding: 25px;
+            border-radius: 10px;
+            border: 1px solid #dee2e6;
+            display: none;
+        }
+
+        .report-preview.show {
+            display: block;
+        }
+
+        .report-title {
+            font-size: 1.8em;
+            color: #1e3c72;
+            text-align: center;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #1e3c72;
+        }
+
+        .report-section-title {
+            font-size: 1.3em;
+            color: #2a5298;
+            margin: 20px 0 10px;
+            padding-left: 10px;
+            border-left: 4px solid #1e3c72;
+        }
+
+        .report-content {
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .signature-area {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px dashed #999;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+
+        .signature-line {
+            text-align: center;
+            min-width: 200px;
+        }
+
+        .signature-line p {
+            margin-top: 40px;
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .item-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .status-buttons {
+                width: 100%;
+            }
+            
+            .status-btn {
+                flex: 1;
+                text-align: center;
+            }
+        }
+    </style>
 </head>
-
 <body>
+    <div class="container">
+        <!-- Cabeçalho -->
+        <div class="header">
+            <h1>🏭 CHECKLIST - INSPEÇÃO DE FILIAL</h1>
+            <div class="info-grid">
+                <div class="info-item">
+                    <label>FILIAL:</label>
+                    <input type="text" id="filial" placeholder="Nome da filial">
+                </div>
+                <div class="info-item">
+                    <label>PERÍODO:</label>
+                    <div style="display: flex; gap: 5px;">
+                        <input type="date" id="periodoInicio" style="flex:1">
+                        <span style="align-self: center;">A</span>
+                        <input type="date" id="periodoFim" style="flex:1">
+                    </div>
+                </div>
+                <div class="info-item">
+                    <label>GERENTE RESPONSÁVEL:</label>
+                    <input type="text" id="gerente" placeholder="Nome do gerente">
+                </div>
+                <div class="info-item">
+                    <label>RESPONSÁVEL PELA INSPEÇÃO:</label>
+                    <input type="text" id="inspetor" placeholder="Nome do inspetor">
+                </div>
+                <div class="info-item">
+                    <label>SUPERVISOR RESPONSÁVEL:</label>
+                    <input type="text" id="supervisor" placeholder="Nome do supervisor">
+                </div>
+            </div>
+        </div>
 
-<header>
-    <img src="logo.png">
-    <h1>SISTEMA INTERNO – AUDITORIA DE CENTRAIS DE CONCRETO</h1>
-</header>
+        <!-- Barra de Progresso -->
+        <div class="progress-container">
+            <h3>📊 Progresso da Inspeção</h3>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressBar"></div>
+            </div>
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalItens">0</div>
+                    <div>Total de Itens</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="conformeCount">0</div>
+                    <div>✓ Conformes</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="nconformeCount">0</div>
+                    <div>✗ Não Conformes</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="pendenteCount">0</div>
+                    <div>⏳ Pendentes</div>
+                </div>
+            </div>
+        </div>
 
-<div class="container">
+        <!-- Navegação por Setores -->
+        <div class="sector-nav" id="sectorNav"></div>
 
-<div class="card">
-<h2>Identificação</h2>
-<label>Filial:</label>
-<input type="text" id="filial">
-<label>Período:</label>
-<input type="date" id="inicio"> até 
-<input type="date" id="fim">
-<label>Responsável Inspeção:</label>
-<input type="text" id="inspetor">
-</div>
+        <!-- Checklist Container -->
+        <div class="checklist-container" id="checklistContainer"></div>
 
-<div class="card">
-<h2>Pátio de Materiais</h2>
-<table>
-<tr>
-<th>Descrição</th>
-<th>Conforme</th>
-<th>Não Conforme</th>
-<th>Observação</th>
-</tr>
+        <!-- Seção de Relatório -->
+        <div class="report-section">
+            <button class="generate-btn" onclick="gerarRelatorio()">
+                📄 GERAR RELATÓRIO COMPLETO
+            </button>
 
-<tr>
-<td>Areia Natural - Condição de Estocagem</td>
-<td><input type="radio" name="p1" value="C"></td>
-<td><input type="radio" name="p1" value="NC"></td>
-<td><textarea id="obs_p1"></textarea></td>
-</tr>
+            <!-- Preview do Relatório -->
+            <div class="report-preview" id="reportPreview">
+                <div class="report-title" id="reportTitle">RELATÓRIO DE INSPEÇÃO</div>
+                
+                <div class="report-content" id="reportContent"></div>
+                
+                <div class="signature-area">
+                    <div class="signature-line">
+                        ______________________________
+                        <p>Responsável pela Inspeção</p>
+                    </div>
+                    <div class="signature-line">
+                        ______________________________
+                        <p>Gerente da Filial</p>
+                    </div>
+                    <div class="signature-line">
+                        ______________________________
+                        <p>Supervisor Responsável</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<tr>
-<td>Brita 0 - Contaminações</td>
-<td><input type="radio" name="p2" value="C"></td>
-<td><input type="radio" name="p2" value="NC"></td>
-<td><textarea id="obs_p2"></textarea></td>
-</tr>
+    <script>
+        // Checklist completo baseado no Excel fornecido
+        const checklistData = {
+            "PÁTIO DE MATERIAIS": [
+                "AREIA NATURAL - CONDIÇÃO DE ESTOCAGEM",
+                "AREIA NATURAL - CONTAMINAÇÕES",
+                "AREIA NATURAL - AMOSTRA PADRÃO - EXISTÊNCIA",
+                "ENSAIOS EXECUTADOS E LANÇADOS NA INTRANET",
+                "AREIA ARTIFICIAL - CONDIÇÃO DE ESTOCAGEM",
+                "AREIA ARTIFICIAL - CONTAMINAÇÕES",
+                "AREIA ARTIFICIAL - AMOSTRA PADRÃO - EXISTÊNCIA",
+                "ENSAIOS EXECUTADOS E LANÇADOS NA INTRANET",
+                "BRITA 0 - CONDIÇÃO DE ESTOCAGEM",
+                "BRITA 0 - CONTAMINAÇÕES",
+                "BRITA 0 - AMOSTRA PADRÃO - EXISTÊNCIA",
+                "BRITA 0 - ASPERSORES EFICIENTES",
+                "ENSAIOS EXECUTADOS E LANÇADOS NA INTRANET",
+                "BRITA 1 - CONDIÇÃO DE ESTOCAGEM",
+                "BRITA 1 - CONTAMINAÇÕES",
+                "BRITA 1 - AMOSTRA PADRÃO - EXISTÊNCIA",
+                "BRITA 1 - ASPERSORES EFICIENTES",
+                "ENSAIOS EXECUTADOS E LANÇADOS NA INTRANET",
+                "ADITIVO - DIQUE DE CONTENÇÃO",
+                "ADITIVO - TANQUES",
+                "ADITIVO - RECIRCULAÇÃO COM BOMBAS",
+                "ADITIVO - DENSIDADE NO RECEBIMENTO",
+                "ADITIVO - AMOSTRAS DE RETENÇÃO",
+                "TAMBORES E CONTENTORES DO PÁTIO",
+                "SADA - DIQUE DE CONTENÇÃO",
+                "SADA - TANQUES",
+                "SADA - RECIRCULAÇÃO COM BOMBAS",
+                "SADA - SISTEMA DE PESAGEM",
+                "SADA - DENSIDADE NO RECEBIMENTO",
+                "SADA - AMOSTRAS DE RETENÇÃO",
+                "CIMENTO - SILOS IDENTIFICADOS",
+                "CIMENTO - AMOSTRAS DE RETENÇÃO",
+                "CONDIÇÃO DA SILICA EM SACOS NO PÁTIO",
+                "CONDIÇÃO DOS INSUMOS DA ARGAMASSA",
+                "PRESENÇA DE ADITIVOS EM TAMBORES/CONTENTORES"
+            ],
+            "BATE LASTRO E RESÍDUOS": [
+                "PRESENÇA DE ESPUMA",
+                "ENTUPIDO",
+                "RESÍDUOS ACUMULADOS",
+                "PRESENÇA DE ADITIVOS",
+                "LIMPEZA GERAL DA CENTRAL"
+            ],
+            "DEMANDA DE ÁGUA": [
+                "FILIAL REALIZA O PROCEDIMENTO",
+                "SOBRA MÉDIA FILIAL",
+                "SOBRA MÉDIA INSPEÇÃO"
+            ],
+            "PONTO DE CARGA": [
+                "ENCLAUSURAMENTO",
+                "ASPERSORES",
+                "MATERIAL NO CHÃO",
+                "SAIA RASGADA"
+            ],
+            "CENTRAL DOSADORA": [
+                "CAIXA DE AGREGADO - CONTAMINAÇÃO",
+                "CORREIAS TRANSPORTADORAS",
+                "BALANÇA DE AGREGADOS - CONDIÇÕES",
+                "BALANÇA DE AGREGADOS - CÉLULA DE CARGA",
+                "BALANÇA DE AGREGADOS - AFERIÇÃO",
+                "BALANÇA DE CIMENTO - CONDIÇÕES",
+                "BALANÇA DE CIMENTO - CÉLULA DE CARGA",
+                "BALANÇA DE CIMENTO - AFERIÇÃO",
+                "BALANÇA DE CIMENTO - FILTRO",
+                "BALANÇA DE CIMENTO - MANGOTE FLEXÍVEL",
+                "BALANÇA DE ADITIVO - CONDIÇÕES",
+                "BALANÇA DE ADITIVO - CÉLULA DE CARGA",
+                "BALANÇA DE ADITIVO - AFERIÇÃO",
+                "EXISTE ADITIVO DOSADO MANUAL"
+            ],
+            "PESAGEM": [
+                "SEQUÊNCIA DE CARREGAMENTO CONCRETO",
+                "SEQUÊNCIA DE CARREGAMENTO ARGAMASSA",
+                "UMIDADE DAS AREIAS NO SISTEMA",
+                "SONDAS DE UMIDADE",
+                "VERIFICAÇÃO RELATÓRIOS DE AUTOMAÇÃO",
+                "CORTE DE ÁGUA"
+            ],
+            "CAMINHÕES": [
+                "PRESENÇA DE SLUMPMIX",
+                "FACAS",
+                "CONCRETO ADERIDO",
+                "HIDRÔMETRO",
+                "VELOCIDADE DO GIRO",
+                "KIT DE MOLDAGEM / SLUMP TEST",
+                "CAMINHÃO DE ARGAMASSA TRANSPORTANDO CONCRETO"
+            ],
+            "EQUIPE": [
+                "TREINAMENTO MOTORISTAS",
+                "ATA DE REGISTRO",
+                "TREINAMENTO BALANCEIRO",
+                "ATA DE REGISTRO",
+                "VISITA SURPRESA",
+                "APLICAÇÃO DE ADVERTÊNCIAS"
+            ],
+            "ARGAMASSA": [
+                "AMOSTRA DE RETENÇÃO ARGAMASSA",
+                "EXPEDIÇÃO - TEOR DE AR E SLUMP - REGISTROS",
+                "MOLDAGENS DE PRISMAS",
+                "MOLDAGENS DE PLACAS"
+            ],
+            "LABORATÓRIO": [
+                "CONDIÇÕES DAS FORMAS PLÁSTICAS",
+                "DESFORMA - PRESSÃO DE AR",
+                "CONDIÇÃO CARRO COLETA",
+                "TEMPO MÉDIO DE COLETA",
+                "AVALIAR RELATÓRIO DE EXCLUSÕES",
+                "CONDIÇÃO DO FRASCO DE CHAPMAN",
+                "CONDIÇÃO DAS PENEIRAS",
+                "TEMPERATURA DO TANQUE",
+                "FUNCIONAMENTO AQUECEDORES",
+                "RETÍFICA - CONDIÇÕES",
+                "RETÍFICA - ESPESSURA DO CORTE",
+                "RETÍFICA - PRESSÃO DE AR",
+                "PRENSA - CONDIÇÕES",
+                "PRENSA - AFERIÇÃO",
+                "PRENSA - VAZAMENTOS",
+                "PRENSA - PLANICIDADE DOS PRATOS",
+                "PRENSA - TESTE DO CARBANO"
+            ]
+        };
 
-<tr>
-<td>Cimento - Silos Identificados</td>
-<td><input type="radio" name="p3" value="C"></td>
-<td><input type="radio" name="p3" value="NC"></td>
-<td><textarea id="obs_p3"></textarea></td>
-</tr>
+        // Estado da aplicação
+        let inspecao = {};
+        let currentSector = Object.keys(checklistData)[0];
+        let photos = {};
 
-</table>
-</div>
+        // Inicializar inspeção
+        function initInspecao() {
+            for (let sector in checklistData) {
+                inspecao[sector] = {};
+                checklistData[sector].forEach(item => {
+                    inspecao[sector][item] = {
+                        status: null, // null, 'conforme', 'nconforme'
+                        observacao: '',
+                        foto: null
+                    };
+                });
+            }
+            renderSectorNav();
+            renderChecklist();
+            updateProgress();
+        }
 
-<div class="card">
-<h2>Central Dosadora</h2>
-<table>
-<tr>
-<th>Descrição</th>
-<th>Conforme</th>
-<th>Não Conforme</th>
-<th>Observação</th>
-</tr>
+        // Renderizar navegação por setores
+        function renderSectorNav() {
+            const nav = document.getElementById('sectorNav');
+            nav.innerHTML = '';
+            Object.keys(checklistData).forEach(sector => {
+                const btn = document.createElement('button');
+                btn.className = `sector-btn ${sector === currentSector ? 'active' : ''}`;
+                btn.textContent = sector;
+                btn.onclick = () => {
+                    currentSector = sector;
+                    document.querySelectorAll('.sector-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    renderChecklist();
+                };
+                nav.appendChild(btn);
+            });
+        }
 
-<tr>
-<td>Balança de Agregados - Aferição</td>
-<td><input type="radio" name="p4" value="C"></td>
-<td><input type="radio" name="p4" value="NC"></td>
-<td><textarea id="obs_p4"></textarea></td>
-</tr>
+        // Renderizar checklist do setor atual
+        function renderChecklist() {
+            const container = document.getElementById('checklistContainer');
+            const items = checklistData[currentSector];
+            
+            let html = `<div class="sector-title">📋 ${currentSector}</div>`;
+            
+            items.forEach(item => {
+                const itemData = inspecao[currentSector][item];
+                const itemClass = itemData.status === 'conforme' ? 'conforme' : 
+                                 itemData.status === 'nconforme' ? 'nconforme' : '';
+                
+                html += `
+                    <div class="checklist-item ${itemClass}" id="item-${currentSector}-${item.replace(/\s+/g, '-')}">
+                        <div class="item-header">
+                            <span class="item-desc">${item}</span>
+                            <div class="status-buttons">
+                                <button class="status-btn btn-conforme ${itemData.status === 'conforme' ? 'active' : ''}" 
+                                        onclick="setStatus('${currentSector}', '${item}', 'conforme')">
+                                    ✓ CONFORME
+                                </button>
+                                <button class="status-btn btn-nconforme ${itemData.status === 'nconforme' ? 'active' : ''}" 
+                                        onclick="setStatus('${currentSector}', '${item}', 'nconforme')">
+                                    ✗ NÃO CONFORME
+                                </button>
+                            </div>
+                        </div>
+                        <div class="observation-area">
+                            <input type="text" class="observation-input" 
+                                   placeholder="Observações..." 
+                                   value="${itemData.observacao || ''}"
+                                   onchange="setObservacao('${currentSector}', '${item}', this.value)">
+                            <div class="photo-upload">
+                                <label class="photo-btn" for="foto-${currentSector}-${item.replace(/\s+/g, '-')}">
+                                    📷 ANEXAR FOTO
+                                </label>
+                                <input type="file" id="foto-${currentSector}-${item.replace(/\s+/g, '-')}" 
+                                       accept="image/*" onchange="handlePhoto(event, '${currentSector}', '${item}')">
+                            </div>
+                        </div>
+                        <div id="preview-${currentSector}-${item.replace(/\s+/g, '-')}">
+                            ${itemData.foto ? `<img src="${itemData.foto}" class="photo-preview">` : ''}
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
 
-<tr>
-<td>Balança de Cimento - Filtro</td>
-<td><input type="radio" name="p5" value="C"></td>
-<td><input type="radio" name="p5" value="NC"></td>
-<td><textarea id="obs_p5"></textarea></td>
-</tr>
+        // Funções de manipulação
+        function setStatus(sector, item, status) {
+            if (inspecao[sector][item].status === status) {
+                inspecao[sector][item].status = null;
+            } else {
+                inspecao[sector][item].status = status;
+            }
+            updateProgress();
+            renderChecklist();
+        }
 
-</table>
-</div>
+        function setObservacao(sector, item, value) {
+            inspecao[sector][item].observacao = value;
+        }
 
-<div class="card">
-<h2>Evidências Fotográficas</h2>
-<input type="file" id="fotos" multiple accept="image/*">
-</div>
+        function handlePhoto(event, sector, item) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    inspecao[sector][item].foto = e.target.result;
+                    document.getElementById(`preview-${sector}-${item.replace(/\s+/g, '-')}`).innerHTML = 
+                        `<img src="${e.target.result}" class="photo-preview">`;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
 
-<button onclick="gerarPDF()">GERAR RELATÓRIO TÉCNICO</button>
+        // Atualizar barra de progresso
+        function updateProgress() {
+            let total = 0;
+            let conforme = 0;
+            let nconforme = 0;
+            
+            for (let sector in inspecao) {
+                for (let item in inspecao[sector]) {
+                    total++;
+                    if (inspecao[sector][item].status === 'conforme') conforme++;
+                    if (inspecao[sector][item].status === 'nconforme') nconforme++;
+                }
+            }
+            
+            const pendente = total - conforme - nconforme;
+            const progresso = ((conforme + nconforme) / total) * 100;
+            
+            document.getElementById('totalItens').textContent = total;
+            document.getElementById('conformeCount').textContent = conforme;
+            document.getElementById('nconformeCount').textContent = nconforme;
+            document.getElementById('pendenteCount').textContent = pendente;
+            document.getElementById('progressBar').style.width = progresso + '%';
+        }
 
-</div>
+        // Gerar relatório
+        function gerarRelatorio() {
+            const filial = document.getElementById('filial').value || 'NÃO INFORMADO';
+            const periodoInicio = document.getElementById('periodoInicio').value || '____';
+            const periodoFim = document.getElementById('periodoFim').value || '____';
+            const gerente = document.getElementById('gerente').value || 'NÃO INFORMADO';
+            const inspetor = document.getElementById('inspetor').value || 'NÃO INFORMADO';
+            const supervisor = document.getElementById('supervisor').value || 'NÃO INFORMADO';
+            
+            const dataAtual = new Date().toLocaleDateString('pt-BR');
+            
+            // Coletar não conformidades
+            let nconformes = [];
+            let conformes = [];
+            
+            for (let sector in inspecao) {
+                for (let item in inspecao[sector]) {
+                    if (inspecao[sector][item].status === 'nconforme') {
+                        nconformes.push({
+                            setor: sector,
+                            item: item,
+                            obs: inspecao[sector][item].observacao || 'Sem observações'
+                        });
+                    } else if (inspecao[sector][item].status === 'conforme') {
+                        conformes.push({
+                            setor: sector,
+                            item: item
+                        });
+                    }
+                }
+            }
+            
+            // Agrupar não conformidades por setor
+            const nconformesPorSetor = {};
+            nconformes.forEach(n => {
+                if (!nconformesPorSetor[n.setor]) {
+                    nconformesPorSetor[n.setor] = [];
+                }
+                nconformesPorSetor[n.setor].push(n);
+            });
+            
+            // Gerar texto do relatório
+            let reportHTML = `
+                <p><strong>FILIAL:</strong> ${filial}</p>
+                <p><strong>PERÍODO:</strong> ${periodoInicio} a ${periodoFim}</p>
+                <p><strong>DATA DO RELATÓRIO:</strong> ${dataAtual}</p>
+                
+                <div class="report-section-title">1. INTRODUÇÃO</div>
+                <p>Foi realizada uma inspeção na filial ${filial} no período de ${periodoInicio} a ${periodoFim}, com o objetivo de verificar as condições operacionais e de conformidade dos setores de produção. A inspeção foi conduzida pelo responsável ${inspetor}, acompanhado pelo gerente da filial ${gerente} e pelo supervisor ${supervisor}.</p>
+                
+                <div class="report-section-title">2. DESENVOLVIMENTO</div>
+            `;
+            
+            // Adicionar não conformidades
+            if (nconformes.length > 0) {
+                reportHTML += `<p>Foram identificadas <strong>${nconformes.length}</strong> não conformidades durante a inspeção:</p>`;
+                
+                for (let setor in nconformesPorSetor) {
+                    reportHTML += `<p><strong>${setor}:</strong></p><ul>`;
+                    nconformesPorSetor[setor].forEach(n => {
+                        reportHTML += `<li>${n.item} - Observação: ${n.obs}</li>`;
+                    });
+                    reportHTML += `</ul>`;
+                }
+            } else {
+                reportHTML += `<p>Não foram identificadas não conformidades durante esta inspeção.</p>`;
+            }
+            
+            // Adicionar pontos positivos
+            if (conformes.length > 0) {
+                reportHTML += `<p><strong>Pontos positivos identificados:</strong> ${conformes.length} itens em conformidade.</p>`;
+            }
+            
+            reportHTML += `
+                <div class="report-section-title">3. CONCLUSÃO</div>
+            `;
+            
+            // Gerar conclusão baseada nos resultados
+            if (nconformes.length === 0) {
+                reportHTML += `<p>Diante do exposto, conclui-se que a filial ${filial} encontra-se em conformidade com todos os itens verificados, demonstrando eficiência nos processos operacionais e de qualidade. Recomenda-se a manutenção das boas práticas observadas.</p>`;
+            } else if (nconformes.length < 5) {
+                reportHTML += `<p>Diante do exposto, recomenda-se que as ${nconformes.length} não conformidades apontadas sejam tratadas com prioridade. A filial apresenta bons indicadores gerais, mas necessita de ajustes pontuais para garantir a excelência nos processos.</p>`;
+            } else {
+                reportHTML += `<p>Diante do exposto, verifica-se a necessidade de um plano de ação estruturado para tratar as ${nconformes.length} não conformidades identificadas. Recomenda-se uma revisão dos processos críticos e acompanhamento rigoroso das ações corretivas.</p>`;
+            }
+            
+            // Contar fotos
+            let totalFotos = 0;
+            for (let sector in inspecao) {
+                for (let item in inspecao[sector]) {
+                    if (inspecao[sector][item].foto) totalFotos++;
+                }
+            }
+            
+            reportHTML += `<p><strong>ANEXOS:</strong> ${totalFotos} ${totalFotos === 1 ? 'foto anexada' : 'fotos anexadas'} à este relatório.</p>`;
+            
+            // Atualizar preview
+            document.getElementById('reportContent').innerHTML = reportHTML;
+            document.getElementById('reportPreview').classList.add('show');
+            
+            // Rolar até o relatório
+            document.getElementById('reportPreview').scrollIntoView({ behavior: 'smooth' });
+        }
 
-<script>
-async function gerarPDF(){
-
-const { jsPDF } = window.jspdf;
-const doc = new jsPDF();
-
-let y = 20;
-
-doc.setFontSize(14);
-doc.text("RELATÓRIO TÉCNICO DE AUDITORIA", 20, y);
-y += 10;
-
-doc.setFontSize(10);
-doc.text("Filial: " + document.getElementById("filial").value, 20, y); y+=6;
-doc.text("Período: " + document.getElementById("inicio").value + " a " + document.getElementById("fim").value, 20, y); y+=6;
-doc.text("Responsável: " + document.getElementById("inspetor").value, 20, y); y+=10;
-
-doc.setFontSize(12);
-doc.text("1. Introdução", 20, y); y+=6;
-doc.setFontSize(10);
-doc.text("A presente auditoria teve como objetivo avaliar as condições operacionais da central.", 20, y); y+=10;
-
-doc.setFontSize(12);
-doc.text("2. Itens Avaliados", 20, y); y+=6;
-
-function resultado(nome){
-let r = document.querySelector('input[name="'+nome+'"]:checked');
-return r ? r.value : "Não Avaliado";
-}
-
-doc.setFontSize(10);
-doc.text("Areia Natural - Estocagem: " + resultado("p1"), 20, y); y+=6;
-doc.text("Brita 0 - Contaminações: " + resultado("p2"), 20, y); y+=6;
-doc.text("Cimento - Silos: " + resultado("p3"), 20, y); y+=6;
-doc.text("Balança Agregados: " + resultado("p4"), 20, y); y+=6;
-doc.text("Balança Cimento Filtro: " + resultado("p5"), 20, y); y+=10;
-
-doc.setFontSize(12);
-doc.text("3. Conclusão Técnica", 20, y); y+=6;
-doc.setFontSize(10);
-doc.text("Com base nos itens avaliados, recomenda-se a correção imediata das não conformidades identificadas.", 20, y);
-
-doc.save("Relatorio_Auditoria.pdf");
-}
-</script>
-
+        // Inicializar
+        initInspecao();
+    </script>
 </body>
 </html>
