@@ -1,0 +1,122 @@
+async function gerarPDF() {
+
+const { jsPDF } = window.jspdf;
+const doc = new jsPDF();
+
+let y = 20;
+
+// Carrega logo
+let logo = await fetch("logo.png")
+  .then(res => res.blob())
+  .then(blob => toBase64(blob));
+
+doc.addImage(logo, 'PNG', 15, 10, 40, 20);
+
+doc.setFontSize(16);
+doc.setTextColor(31,78,121);
+doc.text("RELATÓRIO TÉCNICO DE AVALIAÇÃO", 60, 20);
+
+y = 40;
+
+let central = document.getElementById("central").value;
+let cidade = document.getElementById("cidade").value;
+let responsavel = document.getElementById("responsavel").value;
+let data = document.getElementById("data").value;
+
+doc.setFontSize(12);
+doc.setTextColor(0,0,0);
+
+doc.text(`Central Avaliada: ${central}`, 20, y); y+=7;
+doc.text(`Cidade: ${cidade}`, 20, y); y+=7;
+doc.text(`Responsável Técnico: ${responsavel}`, 20, y); y+=7;
+doc.text(`Data: ${data}`, 20, y); y+=15;
+
+// Introdução automática
+doc.setFontSize(13);
+doc.setTextColor(31,78,121);
+doc.text("1. Introdução", 20, y); y+=8;
+
+doc.setFontSize(11);
+doc.setTextColor(0,0,0);
+doc.text(
+"Este relatório apresenta os resultados da avaliação técnica realizada na central de concreto acima identificada, com base em checklist operacional contemplando aspectos estruturais, de produção e controle tecnológico.",
+20, y, { maxWidth: 170 }
+);
+y+=20;
+
+doc.setFontSize(13);
+doc.setTextColor(31,78,121);
+doc.text("2. Desenvolvimento", 20, y); y+=10;
+
+let itens = document.querySelectorAll(".item");
+let total = 0;
+let conformes = 0;
+
+for (let item of itens) {
+
+let status = item.querySelector(".status").value;
+let obs = item.querySelector("input[type=text]").value;
+let label = item.querySelector("label").innerText;
+let foto = item.querySelector(".foto").files[0];
+
+if(status !== "na") total++;
+if(status === "conforme") conformes++;
+
+if(status === "nc") {
+
+doc.setFontSize(11);
+doc.setTextColor(200,0,0);
+doc.text(`Não Conformidade: ${label}`, 20, y);
+y+=7;
+
+doc.setTextColor(0,0,0);
+doc.text(`Observação: ${obs || "Não informada."}`, 20, y, { maxWidth: 170 });
+y+=10;
+
+if(foto){
+let imgData = await toBase64(foto);
+doc.addImage(imgData, 'JPEG', 20, y, 70, 45);
+y += 55;
+}
+}
+}
+
+let indice = (conformes/total)*100;
+let classificacao = "";
+
+if(indice > 90) classificacao = "EXCELENTE";
+else if(indice >= 80) classificacao = "ADEQUADA";
+else if(indice >= 65) classificacao = "REQUER AJUSTES";
+else classificacao = "CRÍTICA";
+
+doc.setFontSize(13);
+doc.setTextColor(31,78,121);
+doc.text("3. Conclusão", 20, y); y+=10;
+
+doc.setFontSize(11);
+doc.setTextColor(0,0,0);
+
+doc.text(`Índice de Conformidade: ${indice.toFixed(1)}%`, 20, y); y+=7;
+doc.text(`Classificação Final: ${classificacao}`, 20, y); y+=10;
+
+doc.text(
+"A classificação acima foi obtida com base nos critérios objetivos definidos no checklist técnico de auditoria.",
+20, y, { maxWidth: 170 }
+);
+
+// Rodapé
+doc.setFontSize(8);
+doc.setTextColor(120);
+doc.text("Documento gerado automaticamente pelo Sistema Interno de Avaliação de Centrais de Concreto.", 20, 285);
+
+doc.save(`Relatorio_${central}.pdf`);
+}
+
+function toBase64(file){
+return new Promise((resolve, reject)=>{
+const reader = new FileReader();
+reader.readAsDataURL(file);
+reader.onload = ()=> resolve(reader.result);
+reader.onerror = error => reject(error);
+});
+}
