@@ -2,84 +2,226 @@
 <html lang="pt-br">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Avaliação de Central de Concreto</title>
-<link rel="stylesheet" href="style.css">
+<title>Sistema de Auditoria de Centrais</title>
 
-<!-- Biblioteca PDF -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="jspdf.umd.min.js"></script>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+}
+
+header {
+    background-color: #2e2e2e;
+    color: white;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+}
+
+header img {
+    height: 50px;
+    margin-right: 15px;
+}
+
+h1 {
+    font-size: 20px;
+}
+
+.container {
+    padding: 20px;
+}
+
+.card {
+    background: white;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-left: 6px solid #9e9e9e;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.card h2 {
+    margin-top: 0;
+    color: #2e2e2e;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #ccc;
+    padding: 6px;
+    font-size: 13px;
+}
+
+th {
+    background-color: #e0e0e0;
+}
+
+button {
+    background-color: #2e2e2e;
+    color: white;
+    border: none;
+    padding: 12px;
+    width: 100%;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #424242;
+}
+
+textarea {
+    width: 100%;
+}
+
+input[type="text"], input[type="date"] {
+    width: 100%;
+    padding: 6px;
+}
+</style>
 </head>
 
 <body>
 
+<header>
+    <img src="logo.png">
+    <h1>SISTEMA INTERNO – AUDITORIA DE CENTRAIS DE CONCRETO</h1>
+</header>
+
 <div class="container">
 
-<div class="header">
-  <img src="logo.png" class="logo">
-  <div>
-    <h1>Avaliação Técnica de Central de Concreto</h1>
-    <p class="subtitulo">Sistema Interno de Auditoria Operacional</p>
-  </div>
+<div class="card">
+<h2>Identificação</h2>
+<label>Filial:</label>
+<input type="text" id="filial">
+<label>Período:</label>
+<input type="date" id="inicio"> até 
+<input type="date" id="fim">
+<label>Responsável Inspeção:</label>
+<input type="text" id="inspetor">
 </div>
 
 <div class="card">
-<h2>Dados da Central</h2>
+<h2>Pátio de Materiais</h2>
+<table>
+<tr>
+<th>Descrição</th>
+<th>Conforme</th>
+<th>Não Conforme</th>
+<th>Observação</th>
+</tr>
 
-<label>Nome da Central</label>
-<input type="text" id="central">
+<tr>
+<td>Areia Natural - Condição de Estocagem</td>
+<td><input type="radio" name="p1" value="C"></td>
+<td><input type="radio" name="p1" value="NC"></td>
+<td><textarea id="obs_p1"></textarea></td>
+</tr>
 
-<label>Cidade</label>
-<input type="text" id="cidade">
+<tr>
+<td>Brita 0 - Contaminações</td>
+<td><input type="radio" name="p2" value="C"></td>
+<td><input type="radio" name="p2" value="NC"></td>
+<td><textarea id="obs_p2"></textarea></td>
+</tr>
 
-<label>Responsável Técnico</label>
-<input type="text" id="responsavel">
+<tr>
+<td>Cimento - Silos Identificados</td>
+<td><input type="radio" name="p3" value="C"></td>
+<td><input type="radio" name="p3" value="NC"></td>
+<td><textarea id="obs_p3"></textarea></td>
+</tr>
 
-<label>Data</label>
-<input type="date" id="data">
+</table>
 </div>
 
 <div class="card">
-<h2>Checklist</h2>
+<h2>Central Dosadora</h2>
+<table>
+<tr>
+<th>Descrição</th>
+<th>Conforme</th>
+<th>Não Conforme</th>
+<th>Observação</th>
+</tr>
 
-<div class="item">
-<label>Piso industrial adequado</label>
-<select class="status">
-<option value="conforme">Conforme</option>
-<option value="nc">Não Conforme</option>
-<option value="na">Não se aplica</option>
-</select>
-<input type="text" placeholder="Observação">
-<input type="file" accept="image/*" class="foto">
+<tr>
+<td>Balança de Agregados - Aferição</td>
+<td><input type="radio" name="p4" value="C"></td>
+<td><input type="radio" name="p4" value="NC"></td>
+<td><textarea id="obs_p4"></textarea></td>
+</tr>
+
+<tr>
+<td>Balança de Cimento - Filtro</td>
+<td><input type="radio" name="p5" value="C"></td>
+<td><input type="radio" name="p5" value="NC"></td>
+<td><textarea id="obs_p5"></textarea></td>
+</tr>
+
+</table>
 </div>
 
-<div class="item">
-<label>Moldagem conforme procedimento</label>
-<select class="status">
-<option value="conforme">Conforme</option>
-<option value="nc">Não Conforme</option>
-<option value="na">Não se aplica</option>
-</select>
-<input type="text" placeholder="Observação">
-<input type="file" accept="image/*" class="foto">
+<div class="card">
+<h2>Evidências Fotográficas</h2>
+<input type="file" id="fotos" multiple accept="image/*">
 </div>
 
-<div class="item">
-<label>Balanças aferidas</label>
-<select class="status">
-<option value="conforme">Conforme</option>
-<option value="nc">Não Conforme</option>
-<option value="na">Não se aplica</option>
-</select>
-<input type="text" placeholder="Observação">
-<input type="file" accept="image/*" class="foto">
-</div>
-
-<button onclick="gerarPDF()">Gerar Relatório em PDF</button>
+<button onclick="gerarPDF()">GERAR RELATÓRIO TÉCNICO</button>
 
 </div>
-</div>
 
-<script src="script.js"></script>
+<script>
+async function gerarPDF(){
+
+const { jsPDF } = window.jspdf;
+const doc = new jsPDF();
+
+let y = 20;
+
+doc.setFontSize(14);
+doc.text("RELATÓRIO TÉCNICO DE AUDITORIA", 20, y);
+y += 10;
+
+doc.setFontSize(10);
+doc.text("Filial: " + document.getElementById("filial").value, 20, y); y+=6;
+doc.text("Período: " + document.getElementById("inicio").value + " a " + document.getElementById("fim").value, 20, y); y+=6;
+doc.text("Responsável: " + document.getElementById("inspetor").value, 20, y); y+=10;
+
+doc.setFontSize(12);
+doc.text("1. Introdução", 20, y); y+=6;
+doc.setFontSize(10);
+doc.text("A presente auditoria teve como objetivo avaliar as condições operacionais da central.", 20, y); y+=10;
+
+doc.setFontSize(12);
+doc.text("2. Itens Avaliados", 20, y); y+=6;
+
+function resultado(nome){
+let r = document.querySelector('input[name="'+nome+'"]:checked');
+return r ? r.value : "Não Avaliado";
+}
+
+doc.setFontSize(10);
+doc.text("Areia Natural - Estocagem: " + resultado("p1"), 20, y); y+=6;
+doc.text("Brita 0 - Contaminações: " + resultado("p2"), 20, y); y+=6;
+doc.text("Cimento - Silos: " + resultado("p3"), 20, y); y+=6;
+doc.text("Balança Agregados: " + resultado("p4"), 20, y); y+=6;
+doc.text("Balança Cimento Filtro: " + resultado("p5"), 20, y); y+=10;
+
+doc.setFontSize(12);
+doc.text("3. Conclusão Técnica", 20, y); y+=6;
+doc.setFontSize(10);
+doc.text("Com base nos itens avaliados, recomenda-se a correção imediata das não conformidades identificadas.", 20, y);
+
+doc.save("Relatorio_Auditoria.pdf");
+}
+</script>
 
 </body>
 </html>
