@@ -13,7 +13,7 @@
         }
 
         body {
-            background: #f0f0f0;
+            background: #f5f5f5;
             padding: 20px;
         }
 
@@ -22,9 +22,9 @@
             margin: 0 auto;
         }
 
-        /* Header com a nova logo */
+        /* Header com logo SUPERMIX */
         .header {
-            background: linear-gradient(135deg, #2c3e50, #34495e);
+            background: #333333;
             padding: 20px 30px;
             border-radius: 10px;
             margin-bottom: 25px;
@@ -33,49 +33,32 @@
             overflow: hidden;
         }
 
-        .header::before {
-            content: "";
-            position: absolute;
-            top: -50%;
-            right: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
-            animation: shine 15s infinite;
-        }
-
-        @keyframes shine {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
         .logo-container {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            position: relative;
-            z-index: 2;
+            flex-wrap: wrap;
+            gap: 20px;
         }
 
         .logo-left {
             display: flex;
             align-items: baseline;
-            gap: 10px;
+            gap: 15px;
         }
 
         .logo-number {
-            font-size: 3.5em;
+            font-size: 4em;
             font-weight: 800;
-            color: #FFD700;
+            color: #C41E3A;
             line-height: 1;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
 
         .logo-since {
             font-size: 1.2em;
-            color: #FFD700;
+            color: #C41E3A;
             font-weight: 500;
-            margin-left: 5px;
         }
 
         .logo-supermix {
@@ -83,25 +66,24 @@
         }
 
         .logo-supermix h1 {
-            font-size: 3.2em;
+            font-size: 3.5em;
             font-weight: 800;
             color: white;
             letter-spacing: 2px;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
             line-height: 1;
         }
 
         .logo-supermix h2 {
-            font-size: 1.2em;
+            font-size: 1.3em;
             font-weight: 400;
-            color: #FFD700;
+            color: #C41E3A;
             letter-spacing: 1px;
             margin-top: 5px;
         }
 
         .logo-footer {
             font-size: 0.9em;
-            color: rgba(255,255,255,0.7);
+            color: #999;
             margin-top: 5px;
             font-style: italic;
         }
@@ -109,7 +91,7 @@
         /* Grid de informações - CORRIGIDO */
         .info-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(5, 1fr);
             gap: 15px;
             background: white;
             padding: 20px;
@@ -125,7 +107,7 @@
 
         .info-item label {
             font-size: 0.8em;
-            color: #666;
+            color: #C41E3A;
             margin-bottom: 5px;
             text-transform: uppercase;
             font-weight: 600;
@@ -142,23 +124,44 @@
 
         .info-item input:focus {
             outline: none;
-            border-color: #34495e;
-            box-shadow: 0 0 5px rgba(52,73,94,0.3);
+            border-color: #C41E3A;
+            box-shadow: 0 0 5px rgba(196,30,58,0.2);
         }
 
         .periodo-group {
             display: flex;
-            gap: 10px;
+            gap: 8px;
             align-items: center;
         }
 
         .periodo-group input {
             flex: 1;
+            min-width: 0;
         }
 
         .periodo-group span {
-            color: #666;
-            font-weight: 500;
+            color: #333;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        /* Responsividade do grid */
+        @media (max-width: 1200px) {
+            .info-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .info-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         /* Barra de progresso */
@@ -168,6 +171,7 @@
             border-radius: 8px;
             margin-bottom: 20px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-top: 3px solid #C41E3A;
         }
 
         .progress-header {
@@ -191,7 +195,7 @@
         }
 
         .stat strong {
-            color: #34495e;
+            color: #C41E3A;
             font-size: 1.3em;
             margin-right: 5px;
         }
@@ -206,7 +210,7 @@
 
         .progress-fill {
             height: 100%;
-            background: linear-gradient(90deg, #34495e, #4a6a8a);
+            background: linear-gradient(90deg, #C41E3A, #8B0000);
             transition: width 0.3s ease;
             width: 0%;
         }
@@ -224,10 +228,11 @@
             border-radius: 8px;
             padding: 20px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-bottom: 3px solid #C41E3A;
         }
 
         .chart-card h3 {
-            color: #34495e;
+            color: #333;
             font-size: 1.1em;
             margin-bottom: 15px;
             padding-bottom: 10px;
@@ -259,6 +264,7 @@
             border-radius: 4px 4px 0 0;
             transition: height 0.3s;
             min-height: 5px;
+            background: #C41E3A;
         }
 
         .bar-label {
@@ -280,7 +286,7 @@
             height: 150px;
             border-radius: 50%;
             margin: 0 auto;
-            background: conic-gradient(#27ae60 0% 75%, #e74c3c 75% 100%);
+            background: conic-gradient(#C41E3A 0% 75%, #666 75% 100%);
         }
 
         .legend {
@@ -330,13 +336,13 @@
         }
 
         .group-tab:hover {
-            color: #34495e;
+            color: #C41E3A;
             background: #f0f0f0;
         }
 
         .group-tab.active {
-            color: #34495e;
-            border-bottom-color: #34495e;
+            color: #C41E3A;
+            border-bottom-color: #C41E3A;
             background: white;
         }
 
@@ -367,11 +373,11 @@
 
         .sector-tab:hover {
             background: #e0e0e0;
-            color: #34495e;
+            color: #C41E3A;
         }
 
         .sector-tab.active {
-            background: #34495e;
+            background: #C41E3A;
             color: white;
         }
 
@@ -384,7 +390,7 @@
         .sector-title {
             font-size: 1.2em;
             font-weight: 600;
-            color: #34495e;
+            color: #C41E3A;
             margin-bottom: 20px;
             padding-bottom: 10px;
             border-bottom: 2px solid #f0f0f0;
@@ -400,15 +406,15 @@
         }
 
         .checklist-item:hover {
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 8px rgba(196,30,58,0.1);
         }
 
         .checklist-item.nconforme {
-            border-left: 4px solid #e74c3c;
+            border-left: 4px solid #C41E3A;
         }
 
         .checklist-item.conforme {
-            border-left: 4px solid #27ae60;
+            border-left: 4px solid #28a745;
         }
 
         .item-header {
@@ -442,23 +448,23 @@
         }
 
         .btn-conforme {
-            background: #27ae60;
+            background: #28a745;
             color: white;
         }
 
         .btn-conforme.active {
-            background: #2ecc71;
-            box-shadow: 0 0 0 2px rgba(46,204,113,0.3);
+            background: #218838;
+            box-shadow: 0 0 0 2px rgba(40,167,69,0.3);
         }
 
         .btn-nconforme {
-            background: #e74c3c;
+            background: #C41E3A;
             color: white;
         }
 
         .btn-nconforme.active {
-            background: #c0392b;
-            box-shadow: 0 0 0 2px rgba(231,76,60,0.3);
+            background: #8B0000;
+            box-shadow: 0 0 0 2px rgba(196,30,58,0.3);
         }
 
         .observation-area {
@@ -494,8 +500,9 @@
         }
 
         .photo-btn:hover {
-            background: #e0e0e0;
-            color: #34495e;
+            background: #C41E3A;
+            color: white;
+            border-color: #C41E3A;
         }
 
         input[type="file"] {
@@ -515,7 +522,7 @@
 
         .photo-preview:hover {
             transform: scale(1.05);
-            border-color: #34495e;
+            border-color: #C41E3A;
         }
 
         /* Seção de Demanda de Água */
@@ -525,10 +532,11 @@
             padding: 20px;
             margin: 20px 0;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-top: 3px solid #C41E3A;
         }
 
         .agua-section h3 {
-            color: #34495e;
+            color: #333;
             margin-bottom: 20px;
             font-size: 1.2em;
         }
@@ -545,7 +553,7 @@
             padding: 20px;
             border-radius: 8px;
             text-align: center;
-            border-bottom: 3px solid #34495e;
+            border-bottom: 3px solid #C41E3A;
         }
 
         .agua-card h4 {
@@ -558,7 +566,7 @@
         .agua-valor {
             font-size: 2.5em;
             font-weight: 700;
-            color: #34495e;
+            color: #C41E3A;
         }
 
         .agua-label {
@@ -589,11 +597,11 @@
         }
 
         .barra.filial {
-            background: #34495e;
+            background: #333;
         }
 
         .barra.inspecao {
-            background: #e67e22;
+            background: #C41E3A;
         }
 
         .barra-label {
@@ -615,6 +623,7 @@
             padding: 20px;
             margin: 20px 0;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-top: 3px solid #C41E3A;
         }
 
         .acoes-header {
@@ -625,13 +634,13 @@
         }
 
         .acoes-header h3 {
-            color: #34495e;
+            color: #333;
             font-size: 1.2em;
         }
 
         .btn-add {
             padding: 8px 20px;
-            background: #34495e;
+            background: #C41E3A;
             color: white;
             border: none;
             border-radius: 4px;
@@ -641,7 +650,7 @@
         }
 
         .btn-add:hover {
-            background: #4a6a8a;
+            background: #8B0000;
         }
 
         .acao-item {
@@ -664,14 +673,14 @@
             border: 1px solid #e0e0e0;
             border-radius: 4px;
             cursor: pointer;
-            color: #e74c3c;
+            color: #C41E3A;
             transition: all 0.3s;
         }
 
         .btn-remove:hover {
-            background: #e74c3c;
+            background: #C41E3A;
             color: white;
-            border-color: #e74c3c;
+            border-color: #C41E3A;
         }
 
         /* Seção de conclusão */
@@ -681,10 +690,11 @@
             padding: 20px;
             margin: 20px 0;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            border-top: 3px solid #C41E3A;
         }
 
         .conclusao-section h3 {
-            color: #34495e;
+            color: #333;
             margin-bottom: 15px;
             font-size: 1.2em;
         }
@@ -703,7 +713,7 @@
 
         .conclusao-section textarea:focus {
             outline: none;
-            border-color: #34495e;
+            border-color: #C41E3A;
         }
 
         /* Botões de exportação */
@@ -716,7 +726,7 @@
         .btn-primary {
             flex: 1;
             padding: 15px;
-            background: #34495e;
+            background: #333;
             color: white;
             border: none;
             border-radius: 8px;
@@ -731,17 +741,17 @@
         }
 
         .btn-primary:hover {
-            background: #4a6a8a;
+            background: #C41E3A;
             transform: translateY(-2px);
-            box-shadow: 0 4px 10px rgba(52,73,94,0.3);
+            box-shadow: 0 4px 10px rgba(196,30,58,0.3);
         }
 
         .btn-danger {
-            background: #e74c3c;
+            background: #C41E3A;
         }
 
         .btn-danger:hover {
-            background: #c0392b;
+            background: #8B0000;
         }
 
         /* Estilos do relatório para exportação */
@@ -757,17 +767,17 @@
             text-align: center;
             margin-bottom: 30px;
             padding-bottom: 20px;
-            border-bottom: 3px solid #34495e;
+            border-bottom: 3px solid #C41E3A;
         }
 
         .report-header h1 {
-            color: #34495e;
+            color: #333;
             font-size: 2.5em;
             margin-bottom: 5px;
         }
 
         .report-header h2 {
-            color: #e67e22;
+            color: #C41E3A;
             font-size: 1.3em;
             font-weight: 400;
             margin-bottom: 5px;
@@ -794,11 +804,11 @@
             padding: 20px;
             background: #f8f8f8;
             border-radius: 10px;
-            border-left: 4px solid #34495e;
+            border-left: 4px solid #C41E3A;
         }
 
         .report-group-title {
-            color: #34495e;
+            color: #333;
             font-size: 1.4em;
             margin-bottom: 15px;
             display: flex;
@@ -821,7 +831,7 @@
         }
 
         .report-table th {
-            background: #34495e;
+            background: #333;
             color: white;
             padding: 10px;
             text-align: left;
@@ -879,7 +889,7 @@
         .signature-line p {
             margin-top: 40px;
             color: #666;
-            border-top: 2px solid #34495e;
+            border-top: 2px solid #C41E3A;
             padding-top: 5px;
         }
     </style>
@@ -888,7 +898,7 @@
 </head>
 <body>
     <div class="container">
-        <!-- Header com a nova logo -->
+        <!-- Header com logo SUPERMIX (cinza e vermelho) -->
         <div class="header">
             <div class="logo-container">
                 <div class="logo-left">
@@ -903,7 +913,7 @@
             </div>
         </div>
 
-        <!-- Informações - CORRIGIDO -->
+        <!-- Informações - GRID CORRIGIDO -->
         <div class="info-grid">
             <div class="info-item">
                 <label>FILIAL</label>
@@ -918,7 +928,7 @@
                 </div>
             </div>
             <div class="info-item">
-                <label>GERENTE RESPONSÁVEL</label>
+                <label>GERENTE</label>
                 <input type="text" id="gerente" value="João Silva">
             </div>
             <div class="info-item">
@@ -954,8 +964,8 @@
                     <div class="bar-chart" id="grupoChart"></div>
                 </div>
                 <div class="legend">
-                    <div class="legend-item"><span class="legend-color" style="background:#27ae60;"></span> Conforme</div>
-                    <div class="legend-item"><span class="legend-color" style="background:#e74c3c;"></span> Não Conforme</div>
+                    <div class="legend-item"><span class="legend-color" style="background:#C41E3A;"></span> Conforme</div>
+                    <div class="legend-item"><span class="legend-color" style="background:#666;"></span> Não Conforme</div>
                 </div>
             </div>
             <div class="chart-card">
@@ -964,16 +974,16 @@
                     <div class="bar-chart" id="aguaChart"></div>
                 </div>
                 <div class="legend">
-                    <div class="legend-item"><span class="legend-color" style="background:#34495e;"></span> Filial</div>
-                    <div class="legend-item"><span class="legend-color" style="background:#e67e22;"></span> Inspeção</div>
+                    <div class="legend-item"><span class="legend-color" style="background:#333;"></span> Filial</div>
+                    <div class="legend-item"><span class="legend-color" style="background:#C41E3A;"></span> Inspeção</div>
                 </div>
             </div>
             <div class="chart-card">
                 <h3>Visão Geral da Inspeção</h3>
                 <div class="pie-chart" id="pieChart"></div>
                 <div class="legend">
-                    <div class="legend-item"><span class="legend-color" style="background:#27ae60;"></span> Conformes</div>
-                    <div class="legend-item"><span class="legend-color" style="background:#e74c3c;"></span> Não Conformes</div>
+                    <div class="legend-item"><span class="legend-color" style="background:#C41E3A;"></span> Conformes</div>
+                    <div class="legend-item"><span class="legend-color" style="background:#666;"></span> Não Conformes</div>
                 </div>
             </div>
         </div>
@@ -1074,9 +1084,8 @@
     </div>
 
     <script>
-        // Checklist completo
+        // Checklist completo (mesmo do código anterior)
         const checklistData = {
-            // MÁQUINAS/EQUIPAMENTOS
             "PÁTIO DE MATERIAIS": {
                 grupo: "maquinas",
                 itens: [
@@ -1178,8 +1187,6 @@
                     "CAMINHÃO DE ARGAMASSA TRANSPORTANDO CONCRETO"
                 ]
             },
-            
-            // LABORATÓRIO/MCC
             "LABORATÓRIO": {
                 grupo: "laboratorio",
                 itens: [
@@ -1211,8 +1218,6 @@
                     "MOLDAGENS DE PLACAS"
                 ]
             },
-            
-            // PESSOAS/EQUIPE
             "EQUIPE": {
                 grupo: "pessoas",
                 itens: [
@@ -1358,7 +1363,6 @@
             container.innerHTML = html;
         }
 
-        // Funções de manipulação
         function setStatus(sector, item, status) {
             if (!inspecao[sector]) inspecao[sector] = {};
             if (!inspecao[sector][item]) inspecao[sector][item] = { status: null, observacao: '', foto: null };
@@ -1378,7 +1382,6 @@
             if (!inspecao[sector][item]) inspecao[sector][item] = { status: null, observacao: '', foto: null };
             inspecao[sector][item].observacao = value;
             
-            // Atualizar valores de água se for o caso
             if (sector === 'DEMANDA DE ÁGUA') {
                 if (item.includes('SOBRA MÉDIA FILIAL')) {
                     const valor = parseInt(value) || 145;
@@ -1393,7 +1396,7 @@
                     document.getElementById('barraInspecao').style.height = valor + 'px';
                 }
                 if (item.includes('PROCEDIMENTO')) {
-                    document.getElementById('procedimentoStatus').innerHTML = value.includes('não') ? '✗' : '✓';
+                    document.getElementById('procedimentoStatus').innerHTML = value.toLowerCase().includes('não') ? '✗' : '✓';
                 }
                 atualizarGraficos();
             }
@@ -1419,7 +1422,6 @@
             document.querySelectorAll('.group-tab').forEach(t => t.classList.remove('active'));
             element.classList.add('active');
             
-            // Selecionar primeiro setor do grupo
             for (let sector in checklistData) {
                 if (checklistData[sector].grupo === grupo) {
                     currentSector = sector;
@@ -1445,12 +1447,9 @@
         function removerAcao(btn) {
             if (document.querySelectorAll('.acao-item').length > 1) {
                 btn.closest('.acao-item').remove();
-            } else {
-                alert('Mantenha pelo menos uma ação');
             }
         }
 
-        // Atualizar progresso
         function updateProgress() {
             let total = 0;
             let conforme = 0;
@@ -1473,15 +1472,12 @@
             document.getElementById('pendenteCount').textContent = pendente;
             document.getElementById('progressBar').style.width = progresso + '%';
             
-            // Atualizar gráfico de pizza
             const percentConforme = total > 0 ? (conforme / total) * 100 : 0;
             document.getElementById('pieChart').style.background = 
-                `conic-gradient(#27ae60 0% ${percentConforme}%, #e74c3c ${percentConforme}% 100%)`;
+                `conic-gradient(#C41E3A 0% ${percentConforme}%, #666 ${percentConforme}% 100%)`;
         }
 
-        // Atualizar gráficos
         function atualizarGraficos() {
-            // Gráfico por grupo
             const grupos = {
                 maquinas: { conforme: 0, total: 0 },
                 laboratorio: { conforme: 0, total: 0 },
@@ -1512,13 +1508,12 @@
                 barItem.className = 'bar-item';
                 barItem.innerHTML = `
                     <div class="bar-value">${conforme}/${total}</div>
-                    <div class="bar" style="height: ${percentual}px; background: #27ae60;"></div>
+                    <div class="bar" style="height: ${percentual}px; background: #C41E3A;"></div>
                     <div class="bar-label">${grupo === 'maquinas' ? 'Máquinas' : grupo === 'laboratorio' ? 'Lab' : 'Equipe'}</div>
                 `;
                 grupoChart.appendChild(barItem);
             }
             
-            // Gráfico de água
             const sobraFilial = parseInt(document.getElementById('sobraFilial').textContent) || 145;
             const sobraInspecao = parseInt(document.getElementById('sobraInspecao').textContent) || 132;
             
@@ -1529,7 +1524,7 @@
             barFilial.className = 'bar-item';
             barFilial.innerHTML = `
                 <div class="bar-value">${sobraFilial}L</div>
-                <div class="bar" style="height: ${sobraFilial}px; background: #34495e;"></div>
+                <div class="bar" style="height: ${sobraFilial}px; background: #333;"></div>
                 <div class="bar-label">Filial</div>
             `;
             
@@ -1537,21 +1532,19 @@
             barInspecao.className = 'bar-item';
             barInspecao.innerHTML = `
                 <div class="bar-value">${sobraInspecao}L</div>
-                <div class="bar" style="height: ${sobraInspecao}px; background: #e67e22;"></div>
+                <div class="bar" style="height: ${sobraInspecao}px; background: #C41E3A;"></div>
                 <div class="bar-label">Inspeção</div>
             `;
             
             aguaChart.appendChild(barFilial);
             aguaChart.appendChild(barInspecao);
             
-            // Calcular economia
             const economia = sobraFilial - sobraInspecao;
             const percentualEconomia = Math.round((economia / sobraFilial) * 100);
             document.getElementById('economiaAgua').textContent = economia;
             document.getElementById('economiaAgua').nextElementSibling.textContent = `litros/m³ (${percentualEconomia}%)`;
         }
 
-        // Gerar relatório Word
         function gerarRelatorioWord() {
             const filial = document.getElementById('filial').value || 'NÃO INFORMADO';
             const periodoInicio = document.getElementById('periodoInicio').value || '____';
@@ -1563,7 +1556,6 @@
             
             const dataAtual = new Date().toLocaleDateString('pt-BR');
             
-            // Coletar ações
             const acoes = [];
             document.querySelectorAll('.acao-item input').forEach(input => {
                 if (input.value.trim()) {
@@ -1571,29 +1563,10 @@
                 }
             });
             
-            // Coletar dados por grupo
             const grupos = {
-                maquinas: { 
-                    titulo: '🏭 MÁQUINAS E EQUIPAMENTOS',
-                    itens: [], 
-                    fotos: [],
-                    conformes: 0,
-                    total: 0
-                },
-                laboratorio: { 
-                    titulo: '🔬 LABORATÓRIO E MCC',
-                    itens: [], 
-                    fotos: [],
-                    conformes: 0,
-                    total: 0
-                },
-                pessoas: { 
-                    titulo: '👥 PESSOAS E EQUIPE',
-                    itens: [], 
-                    fotos: [],
-                    conformes: 0,
-                    total: 0
-                }
+                maquinas: { titulo: '🏭 MÁQUINAS E EQUIPAMENTOS', itens: [], fotos: [], conformes: 0, total: 0 },
+                laboratorio: { titulo: '🔬 LABORATÓRIO E MCC', itens: [], fotos: [], conformes: 0, total: 0 },
+                pessoas: { titulo: '👥 PESSOAS E EQUIPE', itens: [], fotos: [], conformes: 0, total: 0 }
             };
             
             for (let sector in inspecao) {
@@ -1615,15 +1588,13 @@
                             grupos[grupo].fotos.push({
                                 setor: sector,
                                 item: item,
-                                foto: inspecao[sector][item].foto,
-                                obs: inspecao[sector][item].observacao
+                                foto: inspecao[sector][item].foto
                             });
                         }
                     }
                 }
             }
             
-            // Valores de água
             const sobraFilial = document.getElementById('sobraFilial').textContent;
             const sobraInspecao = document.getElementById('sobraInspecao').textContent;
             
@@ -1631,172 +1602,94 @@
                 <html>
                 <head>
                     <meta charset="UTF-8">
-                    <title>Relatório de Inspeção - ${filial}</title>
+                    <title>Relatório SUPERMIX - ${filial}</title>
                     <style>
-                        body { font-family: 'Segoe UI', Arial, sans-serif; max-width: 1000px; margin: 0 auto; padding: 40px; background: white; }
-                        h1 { color: #2c3e50; text-align: center; font-size: 2.5em; margin-bottom: 5px; }
-                        h2 { color: #e67e22; text-align: center; font-weight: 400; margin-bottom: 5px; }
-                        h3 { color: #2c3e50; margin: 30px 0 15px; border-bottom: 2px solid #2c3e50; padding-bottom: 5px; }
-                        h4 { color: #2c3e50; margin: 20px 0 10px; }
-                        .header { text-align: center; margin-bottom: 30px; border-bottom: 3px solid #2c3e50; padding-bottom: 20px; }
-                        .slogan { color: #666; font-style: italic; text-align: center; margin: 10px 0; }
-                        .info-box { background: #f8f8f8; padding: 20px; border-radius: 8px; margin: 20px 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
-                        .group-box { margin: 30px 0; padding: 20px; background: #f8f8f8; border-radius: 10px; border-left: 4px solid #2c3e50; }
-                        .chart-box { background: white; padding: 20px; border-radius: 8px; margin: 20px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-                        table { width: 100%; border-collapse: collapse; margin: 15px 0; background: white; }
-                        th { background: #2c3e50; color: white; padding: 12px; text-align: left; }
-                        td { padding: 10px; border-bottom: 1px solid #e0e0e0; }
-                        .photo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 20px; margin: 20px 0; }
-                        .photo-item { text-align: center; background: white; padding: 10px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
-                        .photo-item img { width: 140px; height: 140px; object-fit: cover; border-radius: 8px; border: 2px solid #f0f0f0; }
-                        .photo-caption { margin-top: 8px; font-size: 0.85em; color: #666; }
-                        .signature { margin-top: 50px; display: flex; justify-content: space-around; flex-wrap: wrap; gap: 30px; }
+                        body { font-family: 'Segoe UI', Arial, sans-serif; max-width: 1000px; margin: 0 auto; padding: 40px; }
+                        h1 { color: #333; text-align: center; font-size: 2.5em; }
+                        h2 { color: #C41E3A; text-align: center; font-weight: 400; }
+                        .header { text-align: center; border-bottom: 3px solid #C41E3A; padding-bottom: 20px; margin-bottom: 30px; }
+                        .info { background: #f5f5f5; padding: 15px; border-radius: 8px; margin: 20px 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: 10px; }
+                        .group-box { margin: 30px 0; padding: 20px; background: #f5f5f5; border-left: 4px solid #C41E3A; border-radius: 8px; }
+                        table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+                        th { background: #333; color: white; padding: 10px; }
+                        td { padding: 8px; border-bottom: 1px solid #ddd; }
+                        .photo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px,1fr)); gap: 15px; margin: 20px 0; }
+                        .photo-item { text-align: center; }
+                        .photo-item img { width: 150px; height: 150px; object-fit: cover; border-radius: 8px; border: 2px solid #C41E3A; }
+                        .signature { margin-top: 50px; display: flex; justify-content: space-around; }
                         .signature-line { text-align: center; min-width: 200px; }
-                        .signature-line p { margin-top: 40px; border-top: 2px solid #2c3e50; padding-top: 5px; color: #666; }
-                        .badge { display: inline-block; padding: 3px 8px; border-radius: 12px; font-size: 0.85em; font-weight: 600; }
-                        .badge-conforme { background: #27ae60; color: white; }
-                        .badge-nconforme { background: #e74c3c; color: white; }
+                        .signature-line p { margin-top: 40px; border-top: 2px solid #C41E3A; padding-top: 5px; }
                     </style>
                 </head>
                 <body>
                     <div class="header">
                         <h1>SUPERMIX</h1>
                         <h2>facilitando a construção civil</h2>
-                        <div class="slogan">ORGULHO DE FAZER PARTE DESTA HISTÓRIA.</div>
-                        <p style="margin-top: 20px; font-size: 1.2em; color: #2c3e50;"><strong>RELATÓRIO TÉCNICO DE INSPEÇÃO</strong></p>
+                        <p>ORGULHO DE FAZER PARTE DESTA HISTÓRIA.</p>
+                        <h3 style="margin-top: 20px;">RELATÓRIO TÉCNICO DE INSPEÇÃO</h3>
                     </div>
                     
-                    <div class="info-box">
+                    <div class="info">
                         <div><strong>Filial:</strong> ${filial}</div>
                         <div><strong>Período:</strong> ${periodoInicio} a ${periodoFim}</div>
                         <div><strong>Inspetor:</strong> ${inspetor}</div>
                         <div><strong>Gerente:</strong> ${gerente}</div>
                         <div><strong>Supervisor:</strong> ${supervisor}</div>
-                        <div><strong>Data do Relatório:</strong> ${dataAtual}</div>
+                        <div><strong>Data:</strong> ${dataAtual}</div>
                     </div>
                     
                     <h3>1. AÇÕES REALIZADAS</h3>
-                    <ul style="margin: 15px 0 30px;">
-                        ${acoes.map(acao => `<li style="margin: 8px 0;">• ${acao}</li>`).join('')}
-                    </ul>
-                    
-                    <h3>2. ANÁLISE POR GRUPOS</h3>
+                    <ul>${acoes.map(a => `<li>${a}</li>`).join('')}</ul>
             `;
             
-            // Adicionar gráficos por grupo
-            for (let grupo in grupos) {
-                const g = grupos[grupo];
-                const percentual = g.total > 0 ? Math.round((g.conformes / g.total) * 100) : 0;
+            for (let g in grupos) {
+                const grupo = grupos[g];
+                const percentual = grupo.total > 0 ? Math.round((grupo.conformes/grupo.total)*100) : 0;
                 
                 reportHTML += `
                     <div class="group-box">
-                        <h4>${g.titulo}</h4>
-                        
-                        <div class="chart-box">
-                            <p><strong>Conformidade do Grupo:</strong> ${g.conformes}/${g.total} itens (${percentual}%)</p>
-                            <div style="width: 100%; height: 20px; background: #f0f0f0; border-radius: 10px; overflow: hidden; margin: 10px 0;">
-                                <div style="width: ${percentual}%; height: 100%; background: #27ae60;"></div>
-                            </div>
+                        <h3>${grupo.titulo}</h3>
+                        <p><strong>Conformidade:</strong> ${grupo.conformes}/${grupo.total} (${percentual}%)</p>
+                        <div style="width:100%; height:20px; background:#eee; border-radius:10px; margin:10px 0;">
+                            <div style="width:${percentual}%; height:20px; background:#C41E3A; border-radius:10px;"></div>
                         </div>
                 `;
                 
-                if (g.itens.length > 0) {
-                    reportHTML += `
-                        <table>
-                            <tr>
-                                <th>Setor</th>
-                                <th>Item</th>
-                                <th>Observação</th>
-                                <th>Status</th>
-                            </tr>
-                            ${g.itens.map(item => `
-                                <tr>
-                                    <td><strong>${item.setor}</strong></td>
-                                    <td>${item.item}</td>
-                                    <td>${item.obs}</td>
-                                    <td><span class="badge badge-nconforme">NÃO CONFORME</span></td>
-                                </tr>
-                            `).join('')}
-                        </table>
-                    `;
-                } else {
-                    reportHTML += `<p style="color: #27ae60; font-weight: 600;">✓ Nenhuma não conformidade identificada neste grupo.</p>`;
+                if (grupo.itens.length > 0) {
+                    reportHTML += `<table><tr><th>Setor</th><th>Item</th><th>Observação</th></tr>`;
+                    grupo.itens.forEach(i => {
+                        reportHTML += `<tr><td>${i.setor}</td><td>${i.item}</td><td>${i.obs}</td></tr>`;
+                    });
+                    reportHTML += `</table>`;
                 }
                 
-                if (g.fotos.length > 0) {
-                    reportHTML += `
-                        <div class="photo-grid">
-                            ${g.fotos.map((foto, idx) => `
-                                <div class="photo-item">
-                                    <img src="${foto.foto}" alt="Foto">
-                                    <div class="photo-caption">${foto.setor}: ${foto.item}</div>
-                                </div>
-                            `).join('')}
-                        </div>
-                    `;
+                if (grupo.fotos.length > 0) {
+                    reportHTML += `<div class="photo-grid">`;
+                    grupo.fotos.forEach(f => {
+                        reportHTML += `<div class="photo-item"><img src="${f.foto}"><div class="caption">${f.setor}</div></div>`;
+                    });
+                    reportHTML += `</div>`;
                 }
                 
                 reportHTML += `</div>`;
             }
             
             reportHTML += `
-                    <h3>3. ANÁLISE DE DEMANDA DE ÁGUA</h3>
-                    <div class="chart-box">
-                        <table>
-                            <tr>
-                                <th>Indicador</th>
-                                <th>Valor</th>
-                                <th>Referência</th>
-                            </tr>
-                            <tr>
-                                <td>Sobra Média da Filial</td>
-                                <td><strong>${sobraFilial} L/m³</strong></td>
-                                <td>Valor histórico</td>
-                            </tr>
-                            <tr>
-                                <td>Sobra Média na Inspeção</td>
-                                <td><strong>${sobraInspecao} L/m³</strong></td>
-                                <td>Medição durante visita</td>
-                            </tr>
-                            <tr>
-                                <td>Economia Potencial</td>
-                                <td><strong>${sobraFilial - sobraInspecao} L/m³</strong></td>
-                                <td>${Math.round((sobraFilial - sobraInspecao)/sobraFilial*100)}% de redução</td>
-                            </tr>
-                        </table>
-                        
-                        <div style="margin: 30px 0; display: flex; justify-content: center; align-items: flex-end; gap: 40px; height: 200px;">
-                            <div style="text-align: center;">
-                                <div style="height: ${sobraFilial}px; width: 50px; background: #2c3e50; border-radius: 6px 6px 0 0; margin: 0 auto;"></div>
-                                <div style="margin-top: 10px; font-weight: 600;">Filial</div>
-                                <div style="color: #666;">${sobraFilial} L</div>
-                            </div>
-                            <div style="text-align: center;">
-                                <div style="height: ${sobraInspecao}px; width: 50px; background: #e67e22; border-radius: 6px 6px 0 0; margin: 0 auto;"></div>
-                                <div style="margin-top: 10px; font-weight: 600;">Inspeção</div>
-                                <div style="color: #666;">${sobraInspecao} L</div>
-                            </div>
-                        </div>
-                    </div>
+                    <h3>2. DEMANDA DE ÁGUA</h3>
+                    <table>
+                        <tr><th>Indicador</th><th>Valor</th></tr>
+                        <tr><td>Filial</td><td>${sobraFilial} L/m³</td></tr>
+                        <tr><td>Inspeção</td><td>${sobraInspecao} L/m³</td></tr>
+                        <tr><td>Economia</td><td>${sobraFilial - sobraInspecao} L/m³</td></tr>
+                    </table>
                     
-                    <h3>4. CONCLUSÃO</h3>
-                    <div style="background: #f8f8f8; padding: 20px; border-radius: 8px; margin: 20px 0;">
-                        <p style="line-height: 1.6;">${conclusaoManual}</p>
-                    </div>
+                    <h3>3. CONCLUSÃO</h3>
+                    <p>${conclusaoManual}</p>
                     
                     <div class="signature">
-                        <div class="signature-line">
-                            ______________________________
-                            <p>${inspetor}<br>Responsável pela Inspeção</p>
-                        </div>
-                        <div class="signature-line">
-                            ______________________________
-                            <p>${gerente}<br>Gerente da Filial</p>
-                        </div>
-                        <div class="signature-line">
-                            ______________________________
-                            <p>${supervisor}<br>Supervisor Responsável</p>
-                        </div>
+                        <div class="signature-line">______________________________<p>${inspetor}</p></div>
+                        <div class="signature-line">______________________________<p>${gerente}</p></div>
+                        <div class="signature-line">______________________________<p>${supervisor}</p></div>
                     </div>
                 </body>
                 </html>
@@ -1807,10 +1700,9 @@
         }
 
         function gerarRelatorioPDF() {
-            alert('Para melhor qualidade e formatação, utilize a exportação para Word e depois salve como PDF.');
+            alert('Use a exportação para Word e depois salve como PDF para melhor qualidade.');
         }
 
-        // Inicializar
         initInspecao();
     </script>
 </body>
