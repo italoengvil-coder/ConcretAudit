@@ -13,7 +13,7 @@
         }
 
         body {
-            background: #f5f5f5;
+            background: #f0f0f0;
             padding: 20px;
         }
 
@@ -22,197 +22,212 @@
             margin: 0 auto;
         }
 
-        /* Cabeçalho com tons de cinza e logo SUPERMIX */
+        /* Header estilo Receitas Automáticas */
         .header {
-            background: linear-gradient(135deg, #333333, #1a1a1a);
-            color: white;
-            padding: 25px;
-            border-radius: 15px;
-            margin-bottom: 25px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
-        }
-
-        .logo-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
             display: flex;
             align-items: center;
-            gap: 20px;
-            margin-bottom: 20px;
+            gap: 30px;
+        }
+
+        .logo-area {
+            border-right: 2px solid #e0e0e0;
+            padding-right: 30px;
         }
 
         .logo-supermix {
-            font-size: 2.5em;
-            font-weight: 800;
-            letter-spacing: 2px;
-            color: #ffffff;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            font-size: 2em;
+            font-weight: 700;
+            color: #333;
+            letter-spacing: 1px;
         }
 
         .logo-supermix small {
             font-size: 0.3em;
             display: block;
-            color: #cccccc;
-            letter-spacing: 1px;
+            color: #666;
+            font-weight: normal;
         }
 
         .since {
-            font-size: 0.9em;
-            color: #cccccc;
-            border-left: 2px solid #808080;
-            padding-left: 15px;
-            margin-left: 15px;
+            font-size: 0.8em;
+            color: #999;
         }
 
+        .title-area h1 {
+            color: #333;
+            font-size: 1.5em;
+            font-weight: 600;
+        }
+
+        .title-area p {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        /* Grid de informações */
         .info-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
         .info-item {
-            background: rgba(255,255,255,0.1);
-            padding: 15px;
-            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
         }
 
         .info-item label {
-            display: block;
-            font-size: 0.9em;
-            color: #cccccc;
+            font-size: 0.8em;
+            color: #666;
             margin-bottom: 5px;
+            text-transform: uppercase;
+            font-weight: 600;
         }
 
         .info-item input {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #666;
-            border-radius: 5px;
-            font-size: 1em;
-            background: #ffffff;
+            padding: 10px;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            font-size: 0.9em;
+            transition: all 0.3s;
         }
 
         .info-item input:focus {
             outline: none;
-            border-color: #808080;
-            box-shadow: 0 0 5px rgba(128,128,128,0.5);
+            border-color: #999;
+            box-shadow: 0 0 5px rgba(0,0,0,0.1);
         }
 
-        /* Barra de progresso */
-        .progress-container {
+        /* Barra de navegação estilo Receitas Automáticas */
+        .nav-bar {
             background: white;
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            border-top: 3px solid #808080;
-        }
-
-        .progress-bar {
-            width: 100%;
-            height: 20px;
-            background: #e0e0e0;
-            border-radius: 10px;
-            overflow: hidden;
-            margin: 10px 0;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #4a4a4a, #808080);
-            transition: width 0.3s ease;
-            width: 0%;
-        }
-
-        .stats {
-            display: flex;
-            gap: 20px;
-            justify-content: space-around;
-            flex-wrap: wrap;
-        }
-
-        .stat-card {
-            background: #f5f5f5;
-            padding: 15px;
             border-radius: 8px;
-            text-align: center;
-            flex: 1;
-            min-width: 150px;
-            border-bottom: 3px solid #808080;
-        }
-
-        .stat-number {
-            font-size: 2em;
-            font-weight: bold;
-            color: #333333;
-        }
-
-        /* Navegação por setores */
-        .sector-nav {
-            background: white;
-            padding: 15px;
-            border-radius: 10px;
             margin-bottom: 20px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            overflow: hidden;
         }
 
-        .sector-btn {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 5px;
-            background: #e0e0e0;
+        .nav-tabs {
+            display: flex;
+            background: #f8f8f8;
+            border-bottom: 1px solid #e0e0e0;
+            padding: 0 15px;
+        }
+
+        .nav-tab {
+            padding: 15px 25px;
             cursor: pointer;
-            font-weight: 600;
+            color: #666;
+            font-weight: 500;
+            border-bottom: 3px solid transparent;
             transition: all 0.3s;
+        }
+
+        .nav-tab:hover {
             color: #333;
         }
 
-        .sector-btn.active {
-            background: #333333;
-            color: white;
+        .nav-tab.active {
+            color: #333;
+            border-bottom-color: #333;
+            background: white;
         }
 
-        .sector-btn:hover {
-            background: #666666;
-            color: white;
+        .nav-content {
+            padding: 20px;
         }
 
-        /* Checklist */
+        .filter-bar {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            align-items: center;
+        }
+
+        .search-box {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+
+        .filter-btn {
+            padding: 10px 25px;
+            background: #333;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .filter-btn:hover {
+            background: #555;
+        }
+
+        .clear-btn {
+            padding: 10px 25px;
+            background: #f0f0f0;
+            color: #666;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .clear-btn:hover {
+            background: #e0e0e0;
+        }
+
+        /* Checklist container */
         .checklist-container {
             background: white;
-            border-radius: 10px;
+            border-radius: 8px;
             padding: 20px;
-            margin-bottom: 20px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
         .sector-title {
-            background: #333333;
-            color: white;
-            padding: 15px;
-            border-radius: 8px;
+            font-size: 1.2em;
+            font-weight: 600;
+            color: #333;
             margin-bottom: 20px;
-            font-size: 1.3em;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #f0f0f0;
         }
 
         .checklist-item {
-            background: #f8f9fa;
-            border: 1px solid #dee2e6;
-            border-radius: 8px;
+            border: 1px solid #f0f0f0;
+            border-radius: 6px;
             padding: 15px;
-            margin-bottom: 15px;
+            margin-bottom: 10px;
+            background: white;
             transition: all 0.3s;
         }
 
+        .checklist-item:hover {
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
         .checklist-item.nconforme {
-            border-left: 5px solid #dc3545;
-            background: #fff5f5;
+            border-left: 4px solid #dc3545;
         }
 
         .checklist-item.conforme {
-            border-left: 5px solid #28a745;
+            border-left: 4px solid #28a745;
         }
 
         .item-header {
@@ -220,13 +235,10 @@
             justify-content: space-between;
             align-items: center;
             margin-bottom: 10px;
-            flex-wrap: wrap;
-            gap: 10px;
         }
 
         .item-desc {
-            font-weight: 600;
-            font-size: 1.1em;
+            font-weight: 500;
             color: #333;
         }
 
@@ -236,11 +248,12 @@
         }
 
         .status-btn {
-            padding: 8px 20px;
-            border: 2px solid transparent;
-            border-radius: 5px;
+            padding: 6px 15px;
+            border: none;
+            border-radius: 4px;
             cursor: pointer;
-            font-weight: 600;
+            font-weight: 500;
+            font-size: 0.9em;
             transition: all 0.3s;
         }
 
@@ -251,7 +264,11 @@
 
         .btn-conforme.active {
             background: #218838;
-            box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.3);
+            box-shadow: 0 0 0 2px rgba(40,167,69,0.3);
+        }
+
+        .btn-conforme:hover {
+            background: #218838;
         }
 
         .btn-nconforme {
@@ -261,42 +278,45 @@
 
         .btn-nconforme.active {
             background: #c82333;
-            box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.3);
+            box-shadow: 0 0 0 2px rgba(220,53,69,0.3);
+        }
+
+        .btn-nconforme:hover {
+            background: #c82333;
         }
 
         .observation-area {
-            margin-top: 10px;
             display: flex;
             gap: 10px;
-            flex-wrap: wrap;
             align-items: center;
+            margin-top: 10px;
         }
 
         .observation-input {
             flex: 1;
-            min-width: 200px;
             padding: 8px;
-            border: 1px solid #ced4da;
-            border-radius: 5px;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            font-size: 0.9em;
         }
 
         .photo-upload {
             position: relative;
-            display: inline-block;
         }
 
         .photo-btn {
-            background: #666666;
-            color: white;
             padding: 8px 15px;
-            border-radius: 5px;
+            background: #f0f0f0;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
             cursor: pointer;
             font-size: 0.9em;
+            color: #666;
             transition: all 0.3s;
         }
 
         .photo-btn:hover {
-            background: #333333;
+            background: #e0e0e0;
         }
 
         input[type="file"] {
@@ -307,159 +327,219 @@
             max-width: 100px;
             max-height: 100px;
             margin-top: 10px;
-            border-radius: 5px;
-            border: 2px solid #666;
-            cursor: pointer;
+            border-radius: 4px;
+            border: 1px solid #e0e0e0;
         }
 
-        /* Seção de conclusão manual - NOVA */
+        /* Seção de ações */
+        .actions-section {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .actions-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .actions-header h3 {
+            color: #333;
+            font-size: 1.2em;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn-primary {
+            padding: 12px 30px;
+            background: #333;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .btn-primary:hover {
+            background: #555;
+        }
+
+        .btn-secondary {
+            padding: 12px 30px;
+            background: #f0f0f0;
+            color: #666;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+
+        .btn-secondary:hover {
+            background: #e0e0e0;
+        }
+
+        /* Seção de conclusão */
         .conclusao-section {
             background: white;
-            padding: 25px;
-            border-radius: 10px;
-            margin: 20px 0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            border-top: 3px solid #808080;
         }
 
         .conclusao-section h3 {
-            color: #333333;
+            color: #333;
             margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+            font-size: 1.2em;
         }
 
         .conclusao-section textarea {
             width: 100%;
             padding: 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 10px;
-            font-size: 1em;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
+            font-size: 0.95em;
             min-height: 150px;
             resize: vertical;
-            transition: all 0.3s;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
         .conclusao-section textarea:focus {
             outline: none;
-            border-color: #808080;
-            box-shadow: 0 0 10px rgba(128,128,128,0.2);
+            border-color: #999;
         }
 
-        /* Botões de exportação - NOVOS */
-        .export-buttons {
+        /* Progress bar */
+        .progress-container {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #f0f0f0;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #333;
+            transition: width 0.3s ease;
+            width: 0%;
+        }
+
+        .stats {
             display: flex;
             gap: 15px;
-            margin: 20px 0;
-            flex-wrap: wrap;
         }
 
-        .export-btn {
-            flex: 1;
-            min-width: 200px;
-            padding: 20px;
-            border: none;
-            border-radius: 10px;
+        .stat {
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        .stat strong {
+            color: #333;
             font-size: 1.2em;
-            font-weight: bold;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            transition: all 0.3s;
-            color: white;
+            margin-right: 5px;
         }
 
-        .pdf-btn {
-            background: linear-gradient(135deg, #dc3545, #c82333);
-        }
-
-        .pdf-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(220,53,69,0.4);
-        }
-
-        .word-btn {
-            background: linear-gradient(135deg, #1e3c72, #2a5298);
-        }
-
-        .word-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(30,60,114,0.4);
-        }
-
-        /* Estilo do relatório para exportação */
+        /* Bibliotecas para exportação */
         .report-for-export {
             font-family: 'Segoe UI', Arial, sans-serif;
             max-width: 800px;
             margin: 0 auto;
             background: white;
-            padding: 30px;
+            padding: 40px;
         }
 
         .report-header {
             text-align: center;
             margin-bottom: 30px;
-            padding: 20px;
-            background: #333333;
-            color: white;
-            border-radius: 10px;
+            border-bottom: 2px solid #333;
+            padding-bottom: 20px;
         }
 
         .report-header h1 {
-            color: white;
-            font-size: 2.5em;
-            margin-bottom: 5px;
+            color: #333;
+            font-size: 2em;
         }
 
-        .report-header .since-report {
-            color: #cccccc;
+        .report-header h2 {
+            color: #666;
+            font-size: 1.3em;
+            margin-top: 10px;
+        }
+
+        .report-date {
+            color: #999;
             font-size: 0.9em;
+            margin-top: 10px;
+        }
+
+        .report-section {
+            margin: 25px 0;
         }
 
         .report-section-title {
-            color: #333333;
-            font-size: 1.3em;
-            margin: 20px 0 10px;
-            padding-left: 10px;
-            border-left: 4px solid #808080;
+            color: #333;
+            font-size: 1.2em;
+            font-weight: 600;
+            margin-bottom: 10px;
+            text-decoration: underline;
         }
 
-        .report-photo-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-            gap: 15px;
-            margin: 20px 0;
+        .report-subsection {
+            margin: 15px 0;
         }
 
-        .report-photo-item {
-            border: 1px solid #666;
-            padding: 10px;
-            border-radius: 5px;
+        .report-subsection-title {
+            color: #666;
+            font-size: 1.1em;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .report-photo {
+            margin: 15px 0;
             text-align: center;
         }
 
-        .report-photo-item img {
-            max-width: 100%;
-            max-height: 150px;
-            border-radius: 5px;
+        .report-photo img {
+            max-width: 500px;
+            max-height: 300px;
+            border: 1px solid #e0e0e0;
+            border-radius: 4px;
         }
 
-        .report-photo-item p {
-            font-size: 0.8em;
+        .report-photo-caption {
+            color: #999;
+            font-size: 0.85em;
             margin-top: 5px;
-            color: #666;
+            font-style: italic;
         }
 
         .signature-area {
             margin-top: 50px;
             padding-top: 20px;
-            border-top: 2px dashed #666;
+            border-top: 1px dashed #999;
             display: flex;
             justify-content: space-around;
-            flex-wrap: wrap;
         }
 
         .signature-line {
@@ -469,27 +549,9 @@
 
         .signature-line p {
             margin-top: 40px;
-            font-size: 0.9em;
             color: #666;
             border-top: 1px solid #999;
             padding-top: 5px;
-        }
-
-        /* Responsividade */
-        @media (max-width: 768px) {
-            .item-header {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            
-            .status-buttons {
-                width: 100%;
-            }
-            
-            .status-btn {
-                flex: 1;
-                text-align: center;
-            }
         }
     </style>
     <!-- Bibliotecas para exportação -->
@@ -499,94 +561,122 @@
 </head>
 <body>
     <div class="container">
-        <!-- Cabeçalho SUPERMIX em tons de cinza -->
+        <!-- Header estilo Receitas Automáticas -->
         <div class="header">
-            <div class="logo-container">
+            <div class="logo-area">
                 <div class="logo-supermix">
                     SUPERMIX
                     <small>Concreto e Argamassa</small>
                 </div>
                 <div class="since">Desde 1976</div>
             </div>
-            
-            <div class="info-grid">
-                <div class="info-item">
-                    <label>FILIAL:</label>
-                    <input type="text" id="filial" placeholder="Nome da filial">
+            <div class="title-area">
+                <h1>CHECK LIST - INSPEÇÃO DE FILIAL</h1>
+                <p>Sistema de acompanhamento e geração de relatórios técnicos</p>
+            </div>
+        </div>
+
+        <!-- Grid de informações -->
+        <div class="info-grid">
+            <div class="info-item">
+                <label>FILIAL</label>
+                <input type="text" id="filial" placeholder="Nome da filial">
+            </div>
+            <div class="info-item">
+                <label>PERÍODO</label>
+                <div style="display: flex; gap: 5px;">
+                    <input type="date" id="periodoInicio" style="flex:1">
+                    <span style="align-self: center;">A</span>
+                    <input type="date" id="periodoFim" style="flex:1">
                 </div>
-                <div class="info-item">
-                    <label>PERÍODO:</label>
-                    <div style="display: flex; gap: 5px;">
-                        <input type="date" id="periodoInicio" style="flex:1">
-                        <span style="align-self: center; color: white;">A</span>
-                        <input type="date" id="periodoFim" style="flex:1">
-                    </div>
-                </div>
-                <div class="info-item">
-                    <label>GERENTE RESPONSÁVEL:</label>
-                    <input type="text" id="gerente" placeholder="Nome do gerente">
-                </div>
-                <div class="info-item">
-                    <label>RESPONSÁVEL PELA INSPEÇÃO:</label>
-                    <input type="text" id="inspetor" placeholder="Nome do inspetor">
-                </div>
-                <div class="info-item">
-                    <label>SUPERVISOR RESPONSÁVEL:</label>
-                    <input type="text" id="supervisor" placeholder="Nome do supervisor">
-                </div>
+            </div>
+            <div class="info-item">
+                <label>GERENTE RESPONSÁVEL</label>
+                <input type="text" id="gerente" placeholder="Nome do gerente">
+            </div>
+            <div class="info-item">
+                <label>RESPONSÁVEL PELA INSPEÇÃO</label>
+                <input type="text" id="inspetor" placeholder="Nome do inspetor">
+            </div>
+            <div class="info-item">
+                <label>SUPERVISOR RESPONSÁVEL</label>
+                <input type="text" id="supervisor" placeholder="Nome do supervisor">
             </div>
         </div>
 
         <!-- Barra de Progresso -->
         <div class="progress-container">
-            <h3 style="color: #333;">📊 Progresso da Inspeção</h3>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <span class="stat"><strong id="totalItens">0</strong> Total de Itens</span>
+                <span class="stat"><strong id="conformeCount">0</strong> ✓ Conformes</span>
+                <span class="stat"><strong id="nconformeCount">0</strong> ✗ Não Conformes</span>
+                <span class="stat"><strong id="pendenteCount">0</strong> ⏳ Pendentes</span>
+            </div>
             <div class="progress-bar">
                 <div class="progress-fill" id="progressBar"></div>
             </div>
-            <div class="stats">
-                <div class="stat-card">
-                    <div class="stat-number" id="totalItens">0</div>
-                    <div>Total de Itens</div>
+        </div>
+
+        <!-- Navegação estilo Receitas Automáticas -->
+        <div class="nav-bar">
+            <div class="nav-tabs" id="sectorNav"></div>
+            <div class="nav-content">
+                <div class="filter-bar">
+                    <input type="text" class="search-box" placeholder="Pesquisar item..." id="searchInput" onkeyup="filtrarItens()">
+                    <button class="clear-btn" onclick="limparFiltro()">LIMPAR</button>
+                    <button class="filter-btn" onclick="filtrarItens()">FILTRAR</button>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-number" id="conformeCount">0</div>
-                    <div>✓ Conformes</div>
+                <div class="checklist-container" id="checklistContainer"></div>
+            </div>
+        </div>
+
+        <!-- Seção de Ações Realizadas (baseado no relatório Word) -->
+        <div class="actions-section">
+            <div class="actions-header">
+                <h3>Ações Realizadas Durante a Visita</h3>
+                <div class="action-buttons">
+                    <button class="btn-secondary" onclick="adicionarAcao()">+ Adicionar Ação</button>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-number" id="nconformeCount">0</div>
-                    <div>✗ Não Conformes</div>
+            </div>
+            <div id="acoesContainer">
+                <div class="checklist-item" style="display: flex; gap: 10px; align-items: center;">
+                    <input type="text" class="observation-input" style="flex: 1;" placeholder="Descreva a ação realizada..." value="Realização do check list padrão de acompanhamento de central">
+                    <button class="photo-btn" onclick="removerAcao(this)">✕</button>
                 </div>
-                <div class="stat-card">
-                    <div class="stat-number" id="pendenteCount">0</div>
-                    <div>⏳ Pendentes</div>
+                <div class="checklist-item" style="display: flex; gap: 10px; align-items: center;">
+                    <input type="text" class="observation-input" style="flex: 1;" placeholder="Descreva a ação realizada..." value="Manutenção da retífica">
+                    <button class="photo-btn" onclick="removerAcao(this)">✕</button>
+                </div>
+                <div class="checklist-item" style="display: flex; gap: 10px; align-items: center;">
+                    <input type="text" class="observation-input" style="flex: 1;" placeholder="Descreva a ação realizada..." value="Realização de aferição da prensa">
+                    <button class="photo-btn" onclick="removerAcao(this)">✕</button>
+                </div>
+                <div class="checklist-item" style="display: flex; gap: 10px; align-items: center;">
+                    <input type="text" class="observation-input" style="flex: 1;" placeholder="Descreva a ação realizada..." value="Curva de inchamento">
+                    <button class="photo-btn" onclick="removerAcao(this)">✕</button>
+                </div>
+                <div class="checklist-item" style="display: flex; gap: 10px; align-items: center;">
+                    <input type="text" class="observation-input" style="flex: 1;" placeholder="Descreva a ação realizada..." value="Teste com novo MCC">
+                    <button class="photo-btn" onclick="removerAcao(this)">✕</button>
                 </div>
             </div>
         </div>
 
-        <!-- Navegação por Setores -->
-        <div class="sector-nav" id="sectorNav"></div>
-
-        <!-- Checklist Container -->
-        <div class="checklist-container" id="checklistContainer"></div>
-
-        <!-- NOVO: Seção de Conclusão Manual -->
+        <!-- Seção de Conclusão Manual -->
         <div class="conclusao-section">
-            <h3>📝 CONCLUSÃO MANUAL DO RELATÓRIO</h3>
+            <h3>Conclusão do Relatório</h3>
             <textarea id="conclusaoManual" placeholder="Digite aqui a conclusão personalizada para este relatório..."></textarea>
         </div>
 
-        <!-- NOVO: Botões de Exportação -->
-        <div class="export-buttons">
-            <button class="export-btn pdf-btn" onclick="exportarPDF()">
-                📄 EXPORTAR PARA PDF
+        <!-- Botões de Exportação -->
+        <div style="display: flex; gap: 15px; margin: 20px 0;">
+            <button class="btn-primary" style="flex: 1;" onclick="gerarRelatorioWord()">
+                📄 EXPORTAR PARA WORD
             </button>
-            <button class="export-btn word-btn" onclick="exportarWord()">
-                📝 EXPORTAR PARA WORD
+            <button class="btn-primary" style="flex: 1; background: #dc3545;" onclick="gerarRelatorioPDF()">
+                📑 EXPORTAR PARA PDF
             </button>
         </div>
-
-        <!-- Preview do Relatório (escondido) -->
-        <div style="display: none;" id="reportContent"></div>
     </div>
 
     <script>
@@ -742,16 +832,16 @@
             const nav = document.getElementById('sectorNav');
             nav.innerHTML = '';
             Object.keys(checklistData).forEach(sector => {
-                const btn = document.createElement('button');
-                btn.className = `sector-btn ${sector === currentSector ? 'active' : ''}`;
-                btn.textContent = sector;
-                btn.onclick = () => {
+                const tab = document.createElement('div');
+                tab.className = `nav-tab ${sector === currentSector ? 'active' : ''}`;
+                tab.textContent = sector;
+                tab.onclick = () => {
                     currentSector = sector;
-                    document.querySelectorAll('.sector-btn').forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
+                    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
                     renderChecklist();
                 };
-                nav.appendChild(btn);
+                nav.appendChild(tab);
             });
         }
 
@@ -760,7 +850,7 @@
             const container = document.getElementById('checklistContainer');
             const items = checklistData[currentSector];
             
-            let html = `<div class="sector-title">📋 ${currentSector}</div>`;
+            let html = `<div class="sector-title">${currentSector}</div>`;
             
             items.forEach(item => {
                 const itemData = inspecao[currentSector][item];
@@ -775,17 +865,17 @@
                             <div class="status-buttons">
                                 <button class="status-btn btn-conforme ${itemData.status === 'conforme' ? 'active' : ''}" 
                                         onclick="setStatus('${currentSector}', '${item.replace(/'/g, "\\'")}', 'conforme')">
-                                    ✓ CONFORME
+                                    CONFORME
                                 </button>
                                 <button class="status-btn btn-nconforme ${itemData.status === 'nconforme' ? 'active' : ''}" 
                                         onclick="setStatus('${currentSector}', '${item.replace(/'/g, "\\'")}', 'nconforme')">
-                                    ✗ NÃO CONFORME
+                                    NÃO CONFORME
                                 </button>
                             </div>
                         </div>
                         <div class="observation-area">
                             <input type="text" class="observation-input" 
-                                   placeholder="Observações..." 
+                                   placeholder="Observação..." 
                                    value="${itemData.observacao || ''}"
                                    onchange="setObservacao('${currentSector}', '${item.replace(/'/g, "\\'")}', this.value)">
                             <div class="photo-upload">
@@ -834,6 +924,43 @@
             }
         }
 
+        function filtrarItens() {
+            const searchTerm = document.getElementById('searchInput').value.toLowerCase();
+            const items = document.querySelectorAll('.checklist-item');
+            
+            items.forEach(item => {
+                const desc = item.querySelector('.item-desc')?.textContent.toLowerCase() || '';
+                if (desc.includes(searchTerm) || searchTerm === '') {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        function limparFiltro() {
+            document.getElementById('searchInput').value = '';
+            filtrarItens();
+        }
+
+        function adicionarAcao() {
+            const container = document.getElementById('acoesContainer');
+            const novaAcao = document.createElement('div');
+            novaAcao.className = 'checklist-item';
+            novaAcao.style.display = 'flex';
+            novaAcao.style.gap = '10px';
+            novaAcao.style.alignItems = 'center';
+            novaAcao.innerHTML = `
+                <input type="text" class="observation-input" style="flex: 1;" placeholder="Descreva a ação realizada...">
+                <button class="photo-btn" onclick="removerAcao(this)">✕</button>
+            `;
+            container.appendChild(novaAcao);
+        }
+
+        function removerAcao(btn) {
+            btn.closest('.checklist-item').remove();
+        }
+
         // Atualizar barra de progresso
         function updateProgress() {
             let total = 0;
@@ -858,8 +985,8 @@
             document.getElementById('progressBar').style.width = progresso + '%';
         }
 
-        // Gerar HTML do relatório
-        function gerarHTMLRelatorio() {
+        // Gerar relatório no formato Word
+        function gerarRelatorioWord() {
             const filial = document.getElementById('filial').value || 'NÃO INFORMADO';
             const periodoInicio = document.getElementById('periodoInicio').value || '____';
             const periodoFim = document.getElementById('periodoFim').value || '____';
@@ -869,10 +996,18 @@
             const conclusaoManual = document.getElementById('conclusaoManual').value || '';
             
             const dataAtual = new Date().toLocaleDateString('pt-BR');
+            const cidade = filial.split(' ')[0] || 'Filial';
             
-            // Coletar itens
+            // Coletar ações realizadas
+            const acoes = [];
+            document.querySelectorAll('#acoesContainer .checklist-item input').forEach(input => {
+                if (input.value.trim()) {
+                    acoes.push(input.value.trim());
+                }
+            });
+            
+            // Coletar não conformidades
             let nconformes = [];
-            let conformes = [];
             let fotos = [];
             
             for (let sector in inspecao) {
@@ -883,11 +1018,6 @@
                             item: item,
                             obs: inspecao[sector][item].observacao || 'Sem observações',
                             foto: inspecao[sector][item].foto
-                        });
-                    } else if (inspecao[sector][item].status === 'conforme') {
-                        conformes.push({
-                            setor: sector,
-                            item: item
                         });
                     }
                     
@@ -902,46 +1032,125 @@
                 }
             }
             
-            // Agrupar não conformidades por setor
-            const nconformesPorSetor = {};
-            nconformes.forEach(n => {
-                if (!nconformesPorSetor[n.setor]) {
-                    nconformesPorSetor[n.setor] = [];
-                }
-                nconformesPorSetor[n.setor].push(n);
-            });
-            
             // Gerar HTML do relatório
             let reportHTML = `
-                <div class="report-for-export">
-                    <div class="report-header">
+                <html>
+                <head>
+                    <meta charset="UTF-8">
+                    <title>Relatório de Inspeção - ${filial}</title>
+                    <style>
+                        body { font-family: 'Segoe UI', Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 40px; }
+                        h1 { color: #333; text-align: center; }
+                        h2 { color: #666; border-bottom: 1px solid #ccc; padding-bottom: 5px; }
+                        h3 { color: #666; margin-top: 20px; }
+                        .header { text-align: center; margin-bottom: 30px; }
+                        .date { color: #999; font-size: 0.9em; }
+                        .section { margin: 25px 0; }
+                        .subsection { margin: 15px 0; }
+                        ul { list-style-type: none; padding: 0; }
+                        li { margin: 5px 0; }
+                        .photo { margin: 15px 0; text-align: center; }
+                        .photo img { max-width: 500px; max-height: 300px; border: 1px solid #ccc; }
+                        .photo-caption { color: #666; font-size: 0.85em; font-style: italic; }
+                        .signature { margin-top: 50px; display: flex; justify-content: space-around; }
+                        .signature-line { text-align: center; min-width: 200px; }
+                        .signature-line p { margin-top: 40px; border-top: 1px solid #999; padding-top: 5px; }
+                    </style>
+                </head>
+                <body>
+                    <div class="header">
                         <h1>SUPERMIX</h1>
-                        <div style="font-size: 1.2em; margin: 5px 0;">Concreto e Argamassa</div>
-                        <div class="since-report">Desde 1976</div>
-                        <h2 style="color: white; margin-top: 20px;">RELATÓRIO DE INSPEÇÃO</h2>
+                        <p>Concreto e Argamassa • Desde 1976</p>
+                        <h2>RELATÓRIO TÉCNICO DE INSPEÇÃO DE FILIAL</h2>
+                        <p class="date">${cidade}, ${dataAtual}</p>
                     </div>
                     
-                    <div style="margin: 20px 0; padding: 15px; background: #f5f5f5; border-radius: 5px;">
-                        <p><strong>FILIAL:</strong> ${filial}</p>
-                        <p><strong>PERÍODO:</strong> ${periodoInicio} a ${periodoFim}</p>
-                        <p><strong>DATA DO RELATÓRIO:</strong> ${dataAtual}</p>
-                        <p><strong>GERENTE RESPONSÁVEL:</strong> ${gerente}</p>
-                        <p><strong>RESPONSÁVEL PELA INSPEÇÃO:</strong> ${inspetor}</p>
-                        <p><strong>SUPERVISOR RESPONSÁVEL:</strong> ${supervisor}</p>
+                    <div class="section">
+                        <h3>1. Período da Visita / Filial / Técnico Responsável</h3>
+                        <p>Visita realizada no período de ${periodoInicio} a ${periodoFim} na filial ${filial} pelo tecnologista ${inspetor}.</p>
                     </div>
                     
-                    <div class="report-section-title">1. INTRODUÇÃO</div>
-                    <p>Foi realizada uma inspeção na filial ${filial} no período de ${periodoInicio} a ${periodoFim}, com o objetivo de verificar as condições operacionais e de conformidade dos setores de produção. A inspeção foi conduzida pelo responsável ${inspetor}, acompanhado pelo gerente da filial ${gerente} e pelo supervisor ${supervisor}.</p>
+                    <div class="section">
+                        <h3>2. Conclusão</h3>
+                        <p>A visita teve como objetivo identificar oportunidades de melhoria nos processos, reafirmar as boas práticas e realizar ajustes no MCC, visando à otimização de custos dos traços, sem comprometer o desempenho e a qualidade. Tendo em vista esses objetivos, foram realizadas as seguintes ações:</p>
+                        <ul>
+                            ${acoes.map(acao => `<li>• ${acao}</li>`).join('')}
+                        </ul>
+                    </div>
                     
-                    <div class="report-section-title">2. DESENVOLVIMENTO</div>
+                    <div class="section">
+                        <h3>3. Justificativa</h3>
+                        <p>A realização da visita justifica-se pela necessidade de garantir a padronização dos processos produtivos, assegurar a correta aplicação das boas práticas operacionais e avaliar continuamente o MCC, de forma a promover maior eficiência técnica e econômica.</p>
+                    </div>
+                    
+                    <div class="section">
+                        <h3>4. Check List padrão</h3>
+                        <p>Foi aplicado o checklist padrão na unidade ${filial}, com o objetivo de identificar não conformidades e oportunidades de melhoria nos processos.</p>
+                        
+                        ${Object.keys(checklistData).map(sector => {
+                            const sectorItems = nconformes.filter(n => n.setor === sector);
+                            if (sectorItems.length > 0) {
+                                return `
+                                    <div class="subsection">
+                                        <h4>${sector}</h4>
+                                        <ul>
+                                            ${sectorItems.map(item => `
+                                                <li><strong>${item.item}:</strong> ${item.obs}</li>
+                                            `).join('')}
+                                        </ul>
+                                    </div>
+                                `;
+                            }
+                            return '';
+                        }).join('')}
+                    </div>
+                    
+                    ${fotos.length > 0 ? `
+                    <div class="section">
+                        <h3>5. Registros Fotográficos</h3>
+                        ${fotos.map((foto, index) => `
+                            <div class="photo">
+                                <img src="${foto.foto}" alt="Foto ${index + 1}">
+                                <div class="photo-caption">Figura ${index + 1} - ${foto.setor}: ${foto.item}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    ` : ''}
+                    
+                    <div class="section">
+                        <h3>6. Conclusão</h3>
+                        <p>${conclusaoManual || 'A unidade não apresenta resultados abaixo do fck. A visita teve como objetivo principal a identificação de oportunidades de melhoria nos processos, tendo sido observadas possibilidades de otimização no desempenho dos equipamentos, bem como a avaliação de novos materiais.'}</p>
+                    </div>
+                    
+                    <div class="signature">
+                        <div class="signature-line">
+                            ______________________________
+                            <p>${inspetor}<br>Responsável pela Inspeção</p>
+                        </div>
+                        <div class="signature-line">
+                            ______________________________
+                            <p>${gerente}<br>Gerente da Filial</p>
+                        </div>
+                        <div class="signature-line">
+                            ______________________________
+                            <p>${supervisor}<br>Supervisor Responsável</p>
+                        </div>
+                    </div>
+                </body>
+                </html>
             `;
             
-            if (nconformes.length > 0) {
-                reportHTML += `<p>Foram identificadas <strong>${nconformes.length}</strong> não conformidades durante a inspeção:</p>`;
-                
-                for (let setor in nconformesPorSetor) {
-                    reportHTML += `<p><strong>${setor}:</strong></p><ul>`;
-                    nconformesPorSetor[setor].forEach(n => {
-                        reportHTML += `<li>${n.item} - Observação: ${n.obs}</li>`;
-                    });
-                    reportHTML += `</ul>
+            // Criar e baixar arquivo Word
+            const blob = new Blob([reportHTML], { type: 'application/msword' });
+            saveAs(blob, `Relatorio_Inspecao_${filial}_${dataAtual.replace(/\//g, '-')}.doc`);
+        }
+
+        function gerarRelatorioPDF() {
+            alert('Para gerar PDF, utilize a função de exportar para Word e depois salve como PDF pelo Word.\n\nIsso garante melhor formatação e qualidade das imagens.');
+        }
+
+        // Inicializar
+        initInspecao();
+    </script>
+</body>
+</html>
