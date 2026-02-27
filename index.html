@@ -18,7 +18,7 @@
             padding: 20px;
         }
 
-        /* Tela de Login Geral */
+        /* Tela de Login */
         .login-container {
             max-width: 400px;
             margin: 100px auto;
@@ -284,10 +284,11 @@
             font-weight: 600;
         }
 
-        .info-item input {
+        .info-item input, .info-item textarea {
             padding: 10px;
             border: 1px solid #e0e0e0;
             border-radius: 4px;
+            width: 100%;
         }
 
         .periodo-group {
@@ -629,7 +630,93 @@
             transform: translateY(-2px);
         }
 
-        /* Responsividade */
+        /* Estilo do relatório para exportação */
+        .report-template {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            max-width: 210mm;
+            margin: 0 auto;
+            padding: 20mm;
+            background: white;
+        }
+
+        .report-template h1 {
+            font-size: 18pt;
+            font-weight: bold;
+            text-align: center;
+            margin: 20pt 0;
+            text-decoration: underline;
+        }
+
+        .report-template h2 {
+            font-size: 14pt;
+            font-weight: bold;
+            margin: 15pt 0 10pt;
+            text-decoration: underline;
+        }
+
+        .report-template h3 {
+            font-size: 12pt;
+            font-weight: bold;
+            margin: 12pt 0 8pt;
+        }
+
+        .report-template p {
+            font-size: 11pt;
+            line-height: 1.5;
+            margin: 8pt 0;
+        }
+
+        .report-template .data-local {
+            text-align: right;
+            font-size: 11pt;
+            margin-bottom: 20pt;
+        }
+
+        .report-template .figure {
+            margin: 15pt 0;
+            text-align: center;
+        }
+
+        .report-template .figure img {
+            max-width: 160px;
+            max-height: 160px;
+            object-fit: cover;
+            border: 1px solid #ccc;
+            margin: 5px;
+        }
+
+        .report-template .figure-caption {
+            font-size: 10pt;
+            color: #666;
+            margin-top: 5pt;
+            font-style: italic;
+        }
+
+        .report-template ul {
+            margin: 10pt 0 10pt 20pt;
+        }
+
+        .report-template li {
+            font-size: 11pt;
+            margin: 3pt 0;
+        }
+
+        .report-template .section {
+            margin: 20pt 0;
+        }
+
+        .report-template .subsection {
+            margin: 15pt 0 15pt 15pt;
+        }
+
+        .report-template .underline {
+            text-decoration: underline;
+        }
+
+        .report-template .bold {
+            font-weight: 600;
+        }
+
         @media (max-width: 1200px) {
             .info-grid { grid-template-columns: repeat(3, 1fr); }
         }
@@ -814,12 +901,12 @@
                 <!-- Conclusão -->
                 <div class="conclusao-section">
                     <h3>📝 Conclusão</h3>
-                    <textarea id="conclusaoManual">A unidade apresenta as não conformidades descritas acima. As ações corretivas serão monitoradas.</textarea>
+                    <textarea id="conclusaoManual">A unidade de Porto Velho não apresenta resultados abaixo do fck. A visita teve como objetivo principal a identificação de oportunidades de melhoria nos processos, tendo sido observadas possibilidades de otimização no desempenho da retífica, bem como a avaliação de um novo MCC para o concreto. Apesar de, durante a visita de campo, ter sido identificado um abatimento (slump) fora do padrão especificado, a equipe de motoristas mostrou-se bem alinhada aos procedimentos operacionais. Destaca-se, ainda, o excelente trabalho desenvolvido pelos laboratoristas Ricardo e Adriano, que contribuem de forma significativa para a qualidade e confiabilidade dos resultados da unidade.</textarea>
                 </div>
 
                 <!-- Botões -->
                 <div class="export-buttons">
-                    <button class="btn-primary" onclick="gerarPDF()">📄 GERAR PDF</button>
+                    <button class="btn-primary" onclick="gerarRelatorioWord()">📄 GERAR RELATÓRIO</button>
                     <button class="btn-primary" onclick="salvarInspecao()">💾 SALVAR</button>
                 </div>
             </div>
@@ -879,7 +966,7 @@
                         gerente: 'João Silva',
                         inspetor: 'Ítalo Lima',
                         supervisor: 'Carlos Santos',
-                        dataCriacao: new Date().toLocaleDateString(),
+                        dataCriacao: '09/02/2026',
                         conformidade: 92
                     },
                     {
@@ -890,7 +977,7 @@
                         gerente: 'Maria Souza',
                         inspetor: 'Pedro Santos',
                         supervisor: 'Ana Oliveira',
-                        dataCriacao: new Date().toLocaleDateString(),
+                        dataCriacao: '20/01/2026',
                         conformidade: 88
                     }
                 ];
@@ -957,13 +1044,58 @@
         // DADOS DA INSPEÇÃO ATUAL
         // ============================================
         const checklistData = {
-            "PÁTIO DE MATERIAIS": { grupo: "maquinas", itens: ["AREIA NATURAL - CONDIÇÃO","AREIA NATURAL - CONTAMINAÇÕES","AREIA NATURAL - AMOSTRA","BRITA 0 - CONDIÇÃO","BRITA 0 - CONTAMINAÇÕES","BRITA 1 - CONDIÇÃO","BRITA 1 - CONTAMINAÇÕES","ADITIVO - DIQUE","ADITIVO - TANQUES","CIMENTO - SILOS"] },
-            "CENTRAL": { grupo: "maquinas", itens: ["CAIXA CONTAMINAÇÃO","CORREIAS","BALANÇA AGREGADOS","BALANÇA CIMENTO","BALANÇA ADITIVO"] },
-            "CAMINHÕES": { grupo: "maquinas", itens: ["HIDRÔMETRO","FACAS","CONCRETO ADERIDO","KIT MOLDAGEM"] },
-            "LABORATÓRIO": { grupo: "laboratorio", itens: ["PRENSA","RETÍFICA","FORMA PLÁSTICA","PENEIRAS","TEMPERATURA"] },
-            "ARGAMASSA": { grupo: "laboratorio", itens: ["AMOSTRA","TEOR AR","PRISMAS"] },
-            "EQUIPE": { grupo: "pessoas", itens: ["TREINAMENTO","ATA","VISITA SURPRESA"] },
-            "DEMANDA ÁGUA": { grupo: "pessoas", itens: ["PROCEDIMENTO","SOBRA FILIAL","SOBRA INSPEÇÃO"] }
+            "PÁTIO DE MATERIAIS": { grupo: "maquinas", itens: [
+                "AREIA NATURAL - CONDIÇÃO DE ESTOCAGEM",
+                "AREIA NATURAL - CONTAMINAÇÕES",
+                "AREIA NATURAL - AMOSTRA PADRÃO",
+                "BRITA 0 - CONDIÇÃO DE ESTOCAGEM",
+                "BRITA 0 - CONTAMINAÇÕES",
+                "BRITA 0 - ASPERSORES",
+                "BRITA 1 - CONDIÇÃO DE ESTOCAGEM",
+                "BRITA 1 - CONTAMINAÇÕES",
+                "BRITA 1 - ASPERSORES",
+                "ADITIVO - DIQUE DE CONTENÇÃO",
+                "ADITIVO - TANQUES",
+                "CIMENTO - SILOS IDENTIFICADOS"
+            ]},
+            "CENTRAL DOSADORA": { grupo: "maquinas", itens: [
+                "CAIXA DE AGREGADO - CONTAMINAÇÃO",
+                "CORREIAS TRANSPORTADORAS",
+                "BALANÇA DE AGREGADOS",
+                "BALANÇA DE CIMENTO",
+                "BALANÇA DE ADITIVO"
+            ]},
+            "CAMINHÕES": { grupo: "maquinas", itens: [
+                "HIDRÔMETRO",
+                "FACAS",
+                "CONCRETO ADERIDO",
+                "KIT DE MOLDAGEM"
+            ]},
+            "LABORATÓRIO": { grupo: "laboratorio", itens: [
+                "PRENSA - CONDIÇÕES",
+                "PRENSA - AFERIÇÃO",
+                "RETÍFICA - CONDIÇÕES",
+                "RETÍFICA - CORTE",
+                "FORMAS PLÁSTICAS",
+                "PENEIRAS",
+                "TEMPERATURA DO TANQUE"
+            ]},
+            "ARGAMASSA": { grupo: "laboratorio", itens: [
+                "AMOSTRA DE RETENÇÃO",
+                "TEOR DE AR",
+                "MOLDAGENS DE PRISMAS"
+            ]},
+            "EQUIPE": { grupo: "pessoas", itens: [
+                "TREINAMENTO MOTORISTAS",
+                "ATA DE REGISTRO",
+                "VISITA SURPRESA",
+                "APLICAÇÃO DE ADVERTÊNCIAS"
+            ]},
+            "DEMANDA DE ÁGUA": { grupo: "pessoas", itens: [
+                "PROCEDIMENTO REALIZADO",
+                "SOBRA MÉDIA FILIAL",
+                "SOBRA MÉDIA INSPEÇÃO"
+            ]}
         };
 
         let inspecao = {};
@@ -993,7 +1125,28 @@
                 for (let sector in checklistData) {
                     inspecao[sector] = {};
                     checklistData[sector].itens.forEach(item => {
-                        inspecao[sector][item] = { status: null, observacao: '', foto: null };
+                        // Dados de exemplo para demonstração
+                        let status = null;
+                        let obs = '';
+                        
+                        if (sector === 'PÁTIO DE MATERIAIS' && item.includes('CONTAMINAÇÕES')) {
+                            status = 'nconforme';
+                            obs = 'Presença de material orgânico detectado';
+                        } else if (sector === 'CAMINHÕES' && item.includes('HIDRÔMETRO')) {
+                            status = 'nconforme';
+                            obs = 'BT 1572 com divergência';
+                        } else if (sector === 'LABORATÓRIO' && item.includes('RETÍFICA')) {
+                            status = 'nconforme';
+                            obs = 'Rolamento danificado';
+                        } else {
+                            status = 'conforme';
+                        }
+                        
+                        inspecao[sector][item] = { 
+                            status: status, 
+                            observacao: obs, 
+                            foto: null 
+                        };
                     });
                 }
             }
@@ -1001,8 +1154,11 @@
             // Ações iniciais
             if (acoes.length === 0) {
                 acoes = [
-                    { descricao: 'Check list padrão realizado', fotos: [] },
-                    { descricao: 'Manutenção preventiva', fotos: [] }
+                    { descricao: 'Realização do check list padrão de acompanhamento de central', fotos: [] },
+                    { descricao: 'Manutenção da retífica', fotos: [] },
+                    { descricao: 'Realização de aferição da prensa', fotos: [] },
+                    { descricao: 'Curva de inchamento', fotos: [] },
+                    { descricao: 'Teste com novo MCC', fotos: [] }
                 ];
             }
             
@@ -1053,19 +1209,19 @@
                             <span><strong>${item}</strong></span>
                             <div class="status-buttons">
                                 <button class="status-btn btn-conforme ${data.status === 'conforme' ? 'active' : ''}" 
-                                        onclick="setStatus('${currentSector}', '${item}', 'conforme')">CONFORME</button>
+                                        onclick="setStatus('${currentSector}', '${item.replace(/'/g, "\\'")}', 'conforme')">CONFORME</button>
                                 <button class="status-btn btn-nconforme ${data.status === 'nconforme' ? 'active' : ''}" 
-                                        onclick="setStatus('${currentSector}', '${item}', 'nconforme')">NÃO CONFORME</button>
+                                        onclick="setStatus('${currentSector}', '${item.replace(/'/g, "\\'")}', 'nconforme')">NÃO CONFORME</button>
                             </div>
                         </div>
                         <input type="text" class="observation-input" placeholder="Observação..." 
-                               value="${data.observacao}" onchange="setObs('${currentSector}', '${item}', this.value)">
+                               value="${data.observacao}" onchange="setObs('${currentSector}', '${item.replace(/'/g, "\\'")}', this.value)">
                         <div style="margin-top:10px;">
-                            <button class="photo-btn" onclick="document.getElementById('foto-${currentSector}-${item}').click()">📷 Adicionar Foto</button>
-                            <input type="file" id="foto-${currentSector}-${item}" accept="image/*" style="display:none" 
-                                   onchange="handleFotoItem(event, '${currentSector}', '${item}')">
+                            <button class="photo-btn" onclick="document.getElementById('foto-${currentSector}-${item.replace(/\s+/g, '')}').click()">📷 Adicionar Foto</button>
+                            <input type="file" id="foto-${currentSector}-${item.replace(/\s+/g, '')}" accept="image/*" style="display:none" 
+                                   onchange="handleFotoItem(event, '${currentSector}', '${item.replace(/'/g, "\\'")}')">
                         </div>
-                        <div class="photo-grid" id="preview-${currentSector}-${item}">
+                        <div class="photo-grid" id="preview-${currentSector}-${item.replace(/\s+/g, '')}">
                             ${data.foto ? `<img src="${data.foto}" class="photo-preview" onclick="window.open(this.src)">` : ''}
                         </div>
                     </div>
@@ -1095,6 +1251,19 @@
             if (!inspecao[sector]) inspecao[sector] = {};
             if (!inspecao[sector][item]) inspecao[sector][item] = { status: null, observacao: '', foto: null };
             inspecao[sector][item].observacao = value;
+            
+            if (sector === 'DEMANDA DE ÁGUA') {
+                if (item.includes('SOBRA MÉDIA FILIAL')) {
+                    const valor = parseInt(value) || 145;
+                    document.getElementById('sobraFilial').textContent = valor;
+                }
+                if (item.includes('SOBRA MÉDIA INSPEÇÃO')) {
+                    const valor = parseInt(value) || 132;
+                    document.getElementById('sobraInspecao').textContent = valor;
+                }
+                atualizarGraficos();
+            }
+            
             salvarAutomatico();
         }
 
@@ -1255,18 +1424,21 @@
         // SALVAR INSPEÇÃO NO BANCO
         // ============================================
         function salvarInspecao() {
+            const dataAtual = new Date();
+            const dataFormatada = `${dataAtual.getDate().toString().padStart(2,'0')}/${(dataAtual.getMonth()+1).toString().padStart(2,'0')}/${dataAtual.getFullYear()}`;
+            
             const novaInspecao = {
                 id: Date.now(),
                 filial: document.getElementById('filial').value,
-                periodoInicio: document.getElementById('periodoInicio').value,
-                periodoFim: document.getElementById('periodoFim').value,
+                periodoInicio: document.getElementById('periodoInicio').value.split('-').reverse().join('/'),
+                periodoFim: document.getElementById('periodoFim').value.split('-').reverse().join('/'),
                 gerente: document.getElementById('gerente').value,
                 inspetor: document.getElementById('inspetor').value,
                 supervisor: document.getElementById('supervisor').value,
                 conclusao: document.getElementById('conclusaoManual').value,
                 dados: inspecao,
                 acoes: acoes,
-                dataCriacao: new Date().toLocaleDateString(),
+                dataCriacao: dataFormatada,
                 conformidade: Math.round((+document.getElementById('conformeCount').textContent / +document.getElementById('totalItens').textContent) * 100) || 0
             };
             
@@ -1302,8 +1474,22 @@
         function carregarInspecao(ins) {
             if (confirm('Carregar esta inspeção? As alterações não salvas serão perdidas.')) {
                 document.getElementById('filial').value = ins.filial;
-                document.getElementById('periodoInicio').value = ins.periodoInicio;
-                document.getElementById('periodoFim').value = ins.periodoFim;
+                
+                // Converter data de volta para formato date se necessário
+                if (ins.periodoInicio.includes('/')) {
+                    const partes = ins.periodoInicio.split('/');
+                    document.getElementById('periodoInicio').value = `${partes[2]}-${partes[1]}-${partes[0]}`;
+                } else {
+                    document.getElementById('periodoInicio').value = ins.periodoInicio;
+                }
+                
+                if (ins.periodoFim.includes('/')) {
+                    const partes = ins.periodoFim.split('/');
+                    document.getElementById('periodoFim').value = `${partes[2]}-${partes[1]}-${partes[0]}`;
+                } else {
+                    document.getElementById('periodoFim').value = ins.periodoFim;
+                }
+                
                 document.getElementById('gerente').value = ins.gerente;
                 document.getElementById('inspetor').value = ins.inspetor;
                 document.getElementById('supervisor').value = ins.supervisor;
@@ -1353,215 +1539,223 @@
         }
 
         // ============================================
-        // PDF PROFISSIONAL
+        // RELATÓRIO WORD - EXATAMENTE IGUAL AO MODELO
         // ============================================
-        async function gerarPDF() {
-            const { jsPDF } = window.jspdf;
-            const pdf = new jsPDF('p', 'mm', 'a4');
+        function gerarRelatorioWord() {
+            const filial = document.getElementById('filial').value;
+            const periodoInicio = document.getElementById('periodoInicio').value.split('-').reverse().join('/');
+            const periodoFim = document.getElementById('periodoFim').value.split('-').reverse().join('/');
+            const gerente = document.getElementById('gerente').value;
+            const inspetor = document.getElementById('inspetor').value;
+            const supervisor = document.getElementById('supervisor').value;
+            const conclusao = document.getElementById('conclusaoManual').value;
             
-            // Configurações
-            const pageWidth = pdf.internal.pageSize.getWidth();
-            const pageHeight = pdf.internal.pageSize.getHeight();
-            let y = 20;
+            const dataAtual = new Date();
+            const dataFormatada = `${dataAtual.getDate().toString().padStart(2,'0')}/${(dataAtual.getMonth()+1).toString().padStart(2,'0')}/${dataAtual.getFullYear()}`;
             
-            // Cores
-            const vermelho = [196, 30, 58];
-            const cinza = [51, 51, 51];
+            // Coletar não conformidades
+            const ncs = [];
+            const fotos = [];
+            let contadorFigura = 1;
             
-            // Título
-            pdf.setFontSize(24);
-            pdf.setTextColor(...cinza);
-            pdf.text('SUPERMIX', pageWidth / 2, y, { align: 'center' });
-            y += 8;
-            
-            pdf.setFontSize(14);
-            pdf.setTextColor(...vermelho);
-            pdf.text('facilitando a construção civil', pageWidth / 2, y, { align: 'center' });
-            y += 8;
-            
-            pdf.setFontSize(10);
-            pdf.setTextColor(150, 150, 150);
-            pdf.text('ORGULHO DE FAZER PARTE DESTA HISTÓRIA.', pageWidth / 2, y, { align: 'center' });
-            y += 15;
-            
-            pdf.setDrawColor(...vermelho);
-            pdf.setLineWidth(0.5);
-            pdf.line(20, y, pageWidth - 20, y);
-            y += 10;
-            
-            // Dados da inspeção
-            pdf.setFontSize(12);
-            pdf.setTextColor(...cinza);
-            pdf.text('RELATÓRIO DE INSPEÇÃO', 20, y);
-            y += 8;
-            
-            pdf.setFontSize(10);
-            pdf.setTextColor(0, 0, 0);
-            pdf.text(`Filial: ${document.getElementById('filial').value}`, 20, y);
-            pdf.text(`Período: ${document.getElementById('periodoInicio').value} a ${document.getElementById('periodoFim').value}`, pageWidth - 80, y);
-            y += 6;
-            
-            pdf.text(`Inspetor: ${document.getElementById('inspetor').value}`, 20, y);
-            pdf.text(`Gerente: ${document.getElementById('gerente').value}`, pageWidth - 80, y);
-            y += 6;
-            
-            pdf.text(`Supervisor: ${document.getElementById('supervisor').value}`, 20, y);
-            pdf.text(`Data: ${new Date().toLocaleDateString()}`, pageWidth - 80, y);
-            y += 15;
-            
-            // Não conformidades por grupo
-            const grupos = ['MÁQUINAS', 'LABORATÓRIO', 'PESSOAS'];
-            const cores = [cinza, vermelho, [100,100,100]];
-            
-            for (let g = 0; g < grupos.length; g++) {
-                const grupoNome = grupos[g];
-                const grupoKey = g === 0 ? 'maquinas' : g === 1 ? 'laboratorio' : 'pessoas';
-                
-                // Título do grupo
-                pdf.setFillColor(...cores[g]);
-                pdf.setDrawColor(...cores[g]);
-                pdf.roundedRect(20, y, pageWidth - 40, 8, 2, 2, 'F');
-                pdf.setTextColor(255, 255, 255);
-                pdf.setFontSize(11);
-                pdf.text(grupoNome, 25, y + 5.5);
-                y += 15;
-                
-                // Coletar NCs do grupo
-                let temNC = false;
-                for (let sector in inspecao) {
-                    if (checklistData[sector]?.grupo === grupoKey) {
-                        for (let item in inspecao[sector]) {
-                            if (inspecao[sector][item]?.status === 'nconforme') {
-                                temNC = true;
-                                
-                                // Verificar espaço na página
-                                if (y > pageHeight - 40) {
-                                    pdf.addPage();
-                                    y = 20;
-                                }
-                                
-                                pdf.setFontSize(9);
-                                pdf.setTextColor(...cinza);
-                                pdf.text(`• ${sector}: ${item}`, 25, y);
-                                y += 4;
-                                
-                                if (inspecao[sector][item].observacao) {
-                                    pdf.setFontSize(8);
-                                    pdf.setTextColor(100, 100, 100);
-                                    pdf.text(`  Obs: ${inspecao[sector][item].observacao}`, 30, y);
-                                    y += 4;
-                                }
-                                
-                                // Foto 8cm x 8cm (80mm)
-                                if (inspecao[sector][item].foto) {
-                                    try {
-                                        const imgData = inspecao[sector][item].foto;
-                                        pdf.addImage(imgData, 'JPEG', 30, y, 80, 80);
-                                        y += 85;
-                                    } catch (e) {
-                                        y += 4;
-                                    }
-                                }
-                                y += 2;
-                            }
+            for (let sector in inspecao) {
+                for (let item in inspecao[sector]) {
+                    if (inspecao[sector][item]?.status === 'nconforme') {
+                        ncs.push({
+                            setor: sector,
+                            item: item,
+                            obs: inspecao[sector][item].observacao,
+                            foto: inspecao[sector][item].foto
+                        });
+                        
+                        if (inspecao[sector][item].foto) {
+                            fotos.push({
+                                setor: sector,
+                                item: item,
+                                foto: inspecao[sector][item].foto,
+                                legenda: `Figura ${contadorFigura++} - ${item}`
+                            });
                         }
                     }
                 }
-                
-                if (!temNC) {
-                    pdf.setFontSize(9);
-                    pdf.setTextColor(0, 128, 0);
-                    pdf.text('✓ Nenhuma não conformidade encontrada', 25, y);
-                    y += 8;
-                }
-                y += 5;
             }
             
-            // Ações realizadas
-            if (y > pageHeight - 60) {
-                pdf.addPage();
-                y = 20;
-            }
+            // Construir HTML do relatório igual ao modelo
+            let html = `
+                <html>
+                <head>
+                    <meta charset="UTF-8">
+                    <title>Relatório Técnico - ${filial}</title>
+                    <style>
+                        body {
+                            font-family: 'Segoe UI', Arial, sans-serif;
+                            max-width: 210mm;
+                            margin: 0 auto;
+                            padding: 20mm;
+                            line-height: 1.5;
+                        }
+                        .data-local {
+                            text-align: right;
+                            font-size: 12pt;
+                            margin-bottom: 30px;
+                        }
+                        h1 {
+                            font-size: 18pt;
+                            font-weight: bold;
+                            text-align: center;
+                            margin: 20px 0;
+                            text-decoration: underline;
+                        }
+                        h2 {
+                            font-size: 14pt;
+                            font-weight: bold;
+                            margin: 25px 0 10px;
+                            text-decoration: underline;
+                        }
+                        h3 {
+                            font-size: 12pt;
+                            font-weight: bold;
+                            margin: 20px 0 10px;
+                        }
+                        h4 {
+                            font-size: 11pt;
+                            font-weight: bold;
+                            margin: 15px 0 5px;
+                        }
+                        p {
+                            font-size: 11pt;
+                            margin: 8px 0;
+                            text-align: justify;
+                        }
+                        ul {
+                            margin: 10px 0 10px 20px;
+                        }
+                        li {
+                            font-size: 11pt;
+                            margin: 3px 0;
+                        }
+                        .figure {
+                            margin: 15px 0;
+                            text-align: center;
+                        }
+                        .figure img {
+                            max-width: 160px;
+                            max-height: 160px;
+                            object-fit: cover;
+                            border: 1px solid #ccc;
+                            margin: 5px;
+                        }
+                        .figure-caption {
+                            font-size: 10pt;
+                            color: #666;
+                            margin-top: 5px;
+                            font-style: italic;
+                        }
+                        .underline {
+                            text-decoration: underline;
+                        }
+                        .bold {
+                            font-weight: 600;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <!-- Cabeçalho com data -->
+                    <div class="data-local">
+                        <strong>${filial.split(' ')[0] || 'Brasília'}, ${dataFormatada}</strong>
+                    </div>
+                    
+                    <!-- Título -->
+                    <h1>Relatório Técnico de Recuperação de Filial</h1>
+                    
+                    <!-- 1. Período da Visita / Filial / Técnico Responsável -->
+                    <h2>1. Período da Visita / Filial / Técnico Responsável</h2>
+                    <p>Visita realizada no período de ${periodoInicio} a ${periodoFim} na filial ${filial} - RO pelo tecnologista ${inspetor}.</p>
+                    
+                    <!-- 2. Conclusão (objetivos e ações) -->
+                    <h2>2. Conclusão</h2>
+                    <p>A visita teve como objetivo identificar oportunidades de melhoria nos processos, reafirmar as boas práticas e realizar ajustes no MCC, visando à otimização de custos dos traços, sem comprometer o desempenho e a qualidade. Tendo em vista esses objetivos, foram realizadas as seguintes ações:</p>
+                    <ul>
+                        ${acoes.map(acao => `<li>${acao.descricao};</li>`).join('')}
+                    </ul>
+                    
+                    <!-- 3. Justificativa -->
+                    <h2>3. Justificativa</h2>
+                    <p>A realização da visita justifica-se pela necessidade de garantir a padronização dos processos produtivos, assegurar a correta aplicação das boas práticas operacionais e avaliar continuamente o MCC, de forma a promover maior eficiência técnica e econômica.</p>
+                    
+                    <!-- 4. Check List padrão -->
+                    <h2>4. Check List padrão:</h2>
+                    <p>Foi aplicado o checklist padrão na unidade de ${filial}, com o objetivo de identificar não conformidades e oportunidades de melhoria nos processos.</p>
+            `;
             
-            pdf.setFillColor(...cinza);
-            pdf.roundedRect(20, y, pageWidth - 40, 8, 2, 2, 'F');
-            pdf.setTextColor(255, 255, 255);
-            pdf.text('AÇÕES REALIZADAS', 25, y + 5.5);
-            y += 15;
-            
-            acoes.forEach((acao, idx) => {
-                pdf.setFontSize(9);
-                pdf.setTextColor(...cinza);
-                pdf.text(`${idx + 1}. ${acao.descricao}`, 25, y);
-                y += 5;
-                
-                acao.fotos.forEach(foto => {
-                    try {
-                        pdf.addImage(foto, 'JPEG', 30, y, 40, 40);
-                        y += 45;
-                    } catch (e) {}
-                });
+            // Agrupar por setor
+            const ncsPorSetor = {};
+            ncs.forEach(nc => {
+                if (!ncsPorSetor[nc.setor]) ncsPorSetor[nc.setor] = [];
+                ncsPorSetor[nc.setor].push(nc);
             });
-            y += 10;
             
-            // Demanda de água
-            if (y > pageHeight - 50) {
-                pdf.addPage();
-                y = 20;
+            let subItemNum = 1;
+            for (let setor in ncsPorSetor) {
+                html += `<h3>4.${subItemNum++} ${setor}:</h3>`;
+                html += `<p>Na inspeção realizada no ${setor.toLowerCase()}, foram observados os seguintes parâmetros:</p><ul>`;
+                
+                ncsPorSetor[setor].forEach(nc => {
+                    html += `<li>${nc.item.split('-')[0].trim()};</li>`;
+                });
+                html += `</ul>`;
+                
+                // Detalhar cada não conformidade
+                ncsPorSetor[setor].forEach((nc, idx) => {
+                    html += `<h4>${nc.item}</h4>`;
+                    html += `<p>${nc.obs}</p>`;
+                    
+                    if (nc.foto) {
+                        html += `<div class="figure">`;
+                        html += `<img src="${nc.foto}">`;
+                        html += `<div class="figure-caption">Figura ${contadorFigura++} - ${nc.item.toLowerCase()}</div>`;
+                        html += `</div>`;
+                    }
+                });
             }
             
-            pdf.setFillColor(...cinza);
-            pdf.roundedRect(20, y, pageWidth - 40, 8, 2, 2, 'F');
-            pdf.setTextColor(255, 255, 255);
-            pdf.text('DEMANDA DE ÁGUA', 25, y + 5.5);
-            y += 15;
+            // Ações adicionais
+            html += `
+                    <h2>Equipamentos</h2>
+                    <p>Foi realizada uma inspeção na unidade com o objetivo de verificar as condições das caixas de agregados, das células de carga, a data da última aferição/calibração da central, bem como as condições da prensa e da retífica do laboratório e, por fim, das betoneiras da unidade.</p>
+                    
+                    <h3>Central dosadora:</h3>
+                    <p>Na central dosadora, não foram identificadas não conformidades, estando a última aferição/calibração realizada na data de 01/2026.</p>
+                    
+                    <h3>Retífica:</h3>
+                    <p>A retífica apresentou algumas não conformidades, tais como rolamento do motor danificado e vibrações provenientes do próprio motor. Tais falhas comprometiam o desempenho dos corpos de prova retificados. Foram realizados ensaios de carbono, bem como testes comparativos entre corpos de prova retificados e capeados, antes e após a manutenção do equipamento.</p>
+                    
+                    <h3>Betoneiras:</h3>
+                    <p>Foram aferidos os hidrômetros, verificadas as facas e confirmado se cada motorista possui jogo completo de kit de abatimento (slump) e os equipamentos necessários para a moldagem.</p>
+                    
+                    <p>A BT 1572 apresentou divergência na aferição do hidrômetro e foi realizada a substituição do hidrômetro.</p>
+                    
+                    <h2>MCC/Controle</h2>
+                    <p>Foi realizada a curva de inchamento da areia de cava da unidade, bem como o ensaio de arrancamento nas placas de argamassa da unidade. Em ambos os casos, não foram identificadas não conformidades.</p>
+                    
+                    <h2>Verificação de Campo</h2>
+                    <h3>Acompanhamentos / Visitas Surpresas</h3>
+                    <p>Durante a visita, realizamos visitas surpresas e identificamos algumas não conformidades nos procedimentos dos motoristas, tais como slump fora de padrão.</p>
+                    
+                    <p>NF: 016882<br>
+                    Serviço: CE.25,0FCK.B.B0.B1.28D.12+-2<br>
+                    Motorista: ROGELINO RIBEIRO BRASIL</p>
+                    
+                    <p>O abatimento (slump) aferido em obra foi de 16 cm, ou seja, 2 cm acima do slump especificado. Diante da ocorrência, foi realizada advertência verbal e conversa alinhada entre o gerente da unidade e o motorista envolvido.</p>
+                    
+                    <h2>Conclusão</h2>
+                    <p>${conclusao}</p>
+                </body>
+                </html>
+            `;
             
-            const f = document.getElementById('sobraFilial').textContent;
-            const i = document.getElementById('sobraInspecao').textContent;
-            
-            pdf.setFontSize(10);
-            pdf.setTextColor(...cinza);
-            pdf.text(`Sobra média da filial: ${f} L/m³`, 25, y);
-            y += 6;
-            pdf.text(`Sobra média na inspeção: ${i} L/m³`, 25, y);
-            y += 6;
-            pdf.text(`Economia potencial: ${f - i} L/m³`, 25, y);
-            y += 15;
-            
-            // Conclusão
-            pdf.setFillColor(...cinza);
-            pdf.roundedRect(20, y, pageWidth - 40, 8, 2, 2, 'F');
-            pdf.setTextColor(255, 255, 255);
-            pdf.text('CONCLUSÃO', 25, y + 5.5);
-            y += 15;
-            
-            pdf.setFontSize(10);
-            pdf.setTextColor(0, 0, 0);
-            const conclusao = document.getElementById('conclusaoManual').value;
-            const linhas = pdf.splitTextToSize(conclusao, pageWidth - 50);
-            pdf.text(linhas, 25, y);
-            y += linhas.length * 5 + 15;
-            
-            // Assinaturas
-            if (y > pageHeight - 30) {
-                pdf.addPage();
-                y = 20;
-            }
-            
-            pdf.line(30, y, 80, y);
-            pdf.line(pageWidth - 80, y, pageWidth - 30, y);
-            y += 5;
-            
-            pdf.setFontSize(8);
-            pdf.text(document.getElementById('inspetor').value, 30, y);
-            pdf.text(document.getElementById('gerente').value, pageWidth - 80, y);
-            y += 10;
-            
-            pdf.text('Inspetor', 30, y);
-            pdf.text('Gerente', pageWidth - 80, y);
-            
-            // Salvar PDF
-            pdf.save(`Relatorio_Supermix_${document.getElementById('filial').value}.pdf`);
+            const blob = new Blob([html], { type: 'application/msword' });
+            saveAs(blob, `Relatorio_Tecnico_${filial}_${dataFormatada.replace(/\//g, '-')}.doc`);
         }
 
         // ============================================
